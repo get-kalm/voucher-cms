@@ -1,5 +1,5 @@
 import { db, vouchersTable } from "@/db/index";
-import { where, and, eq, lt } from "drizzle-orm";
+import { and, eq, gt } from "drizzle-orm";
 
 export class voucherRepository {
   static async findAll() {
@@ -37,7 +37,7 @@ export class voucherRepository {
                     eq(vouchersTable.code, code),
                     eq(vouchersTable.isActive, true),
                     eq(vouchersTable.isRedeemed, false),
-                    lt(currentTime, vouchersTable.expiryDate)
+                    gt(vouchersTable.expiryDate, currentTime)
                 )
             );
     }
