@@ -6,7 +6,8 @@ export class voucherService {
   }
 
   static async findByCode(code: string) {
-    const vouchers = await voucherRepository.findActiveAndUnredeemedCode(code)
+    const currentTime = new Date(); 
+    const vouchers = await voucherRepository.findActiveAndUnredeemedCode(code, currentTime)
 
     if (!vouchers || vouchers.length === 0) {
         return null
@@ -21,7 +22,8 @@ export class voucherService {
   }
 
   static async redeemVoucher(code: string) {
-    const vouchers = await voucherRepository.findActiveAndUnredeemedCode(code);
+    const currentTime = new Date(); 
+    const vouchers = await voucherRepository.findActiveAndUnredeemedCode(code, currentTime);
 
     if (vouchers.length === 0) {
         return null

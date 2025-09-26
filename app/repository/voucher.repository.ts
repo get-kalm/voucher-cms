@@ -1,5 +1,5 @@
 import { db, vouchersTable } from "@/db/index";
-import { where, and, eq } from "drizzle-orm";
+import { where, and, eq, lt } from "drizzle-orm";
 
 export class voucherRepository {
   static async findAll() {
@@ -28,7 +28,7 @@ export class voucherRepository {
     return db.select().from(vouchersTable).where(eq(vouchersTable.code, code));
   }
 
-    static async findActiveAndUnredeemedCode(code: string) {
+    static async findActiveAndUnredeemedCode(code: string, currentTime: Date) {
         return db
             .select()
             .from(vouchersTable)
@@ -36,7 +36,8 @@ export class voucherRepository {
                 and(
                     eq(vouchersTable.code, code),
                     eq(vouchersTable.isActive, true),
-                    eq(vouchersTable.isRedeemed, false)
+                    eq(vouchersTable.isRedeemed, false),
+                    lt(currentTime, vouchersTable.expiryDate)
                 )
             );
     }
