@@ -23,7 +23,7 @@ export class voucherRepository {
     }
   }
 
-  static async getByCode(code: string) {
+  static async findByCode(code: string) {
     return db.select().from(vouchersTable).where(eq(vouchersTable.code, code));
   }
 };

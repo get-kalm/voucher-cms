@@ -5,6 +5,10 @@ export class voucherService {
     return await voucherRepository.findAll();
   }
 
+  static async findByCode(code: string) {
+    return await voucherRepository.findByCode(code);
+  }
+
   static async create(name: string, isActive: boolean) {
     const code = await this.validateUniqueCode();
     return voucherRepository.create(name, code, isActive, false);
@@ -20,7 +24,7 @@ export class voucherService {
       code = this.generateCode();
 
       // TODO: create repo func to get all codes and loop through it to create validate uniqueness
-      const existingCode = await voucherRepository.getByCode(code);
+      const existingCode = await voucherRepository.findByCode(code);
       if (existingCode.length === 0) {
         return code;
       }
