@@ -6,20 +6,21 @@ export class voucherRepository {
     return db.select().from(vouchersTable);
   }
 
-  static async create(name: string, code: string, isActive: boolean, isRedeemed: boolean) {
+  static async create(name: string, code: string, isActive: boolean, isRedeemed: boolean, expiryDate: Date) {
     try {
         await db.insert(vouchersTable).values({
             name,
             code,
             isActive,
-            isRedeemed
+            isRedeemed,
+            expiryDate
         })
     } catch (error: any) {
-        if (error.cause.code === '23505') {
+        if (error?.cause?.code === '23505') {
             throw new Error(error.cause.detail);
         }
 
-        throw new Error('Failed to create voucher:' + error.message);
+        throw new Error('Failed to create voucher: ' + error.message);
     }
   }
 

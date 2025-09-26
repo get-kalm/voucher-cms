@@ -15,9 +15,9 @@ export class voucherService {
     return vouchers[0]
   }
 
-  static async create(name: string, isActive: boolean) {
+  static async create(name: string, isActive: boolean, expiryDate: Date) {
     const code = await this.validateUniqueCode();
-    return voucherRepository.create(name, code, isActive, false);
+    return voucherRepository.create(name, code, isActive, false, expiryDate);
   }
 
   static async redeemVoucher(code: string) {
