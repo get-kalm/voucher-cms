@@ -39,4 +39,21 @@ export class voucherRepository {
                 )
             );
     }
+
+    static async update(name: string, code: string, isActive: boolean, isRedeemed: boolean) {
+        try {
+            const voucher = await db.update(vouchersTable)
+                .set({ 
+                    name,
+                    isActive,
+                    isRedeemed, 
+                    updatedAt: new Date() 
+                })
+                .where(eq(vouchersTable.code, code))
+
+                return voucher;
+        } catch (error: any) {
+            throw new Error('Failed to update voucher:' + error.message);
+        }
+    }
 };

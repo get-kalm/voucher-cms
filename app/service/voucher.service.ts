@@ -6,12 +6,30 @@ export class voucherService {
   }
 
   static async findByCode(code: string) {
-    return await voucherRepository.findActiveAndUnredeemedCode(code);
+    const vouchers = await voucherRepository.findActiveAndUnredeemedCode(code)
+
+    if (!vouchers || vouchers.length === 0) {
+        return null
+    }
+
+    return vouchers[0]
   }
 
   static async create(name: string, isActive: boolean) {
     const code = await this.validateUniqueCode();
     return voucherRepository.create(name, code, isActive, false);
+  }
+
+  static async redeemVoucher(code: string) {
+    const vouchers = await voucherRepository.findActiveAndUnredeemedCode(code);
+
+    if (vouchers.length === 0) {
+        return null
+    }
+
+    const voucher = vouchers[0]
+
+    return voucherRepository.update(voucher.name, voucher.code, voucher.isActive, true);
   }
 
   private static async validateUniqueCode(): Promise<string> {
