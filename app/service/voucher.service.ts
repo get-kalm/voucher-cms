@@ -7,7 +7,7 @@ export class voucherService {
 
   static async create(name: string, isActive: boolean) {
     const code = await this.validateUniqueCode();
-    return voucherRepository.create(name, code, isActive);
+    return voucherRepository.create(name, code, isActive, false);
   }
 
   private static async validateUniqueCode(): Promise<string> {

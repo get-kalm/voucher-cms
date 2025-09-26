@@ -12,6 +12,5 @@ export const vouchersTable = pgTable("vouchers", {
   updatedAt: timestamp("updated_at", { withTimezone: true })
     .defaultNow()
     .notNull(),
-  deletedAt: timestamp("deleted_at", { withTimezone: true })
-    .default(null),
+  deletedAt: timestamp("deleted_at", { withTimezone: true }),
 });

@@ -6,15 +6,15 @@ export class voucherRepository {
     return db.select().from(vouchersTable);
   }
 
-  static async create(name: string, code: string, isActive: number, isRedeemed) {
+  static async create(name: string, code: string, isActive: boolean, isRedeemed: boolean) {
     try {
         await db.insert(vouchersTable).values({
             name,
             code,
             isActive,
-            isRedeemed: false
+            isRedeemed
         })
-    } catch (error) {
+    } catch (error: any) {
         if (error.cause.code === '23505') {
             throw new Error(error.cause.detail);
         }

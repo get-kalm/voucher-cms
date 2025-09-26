@@ -6,7 +6,7 @@ CREATE TABLE "vouchers" (
 	"is_redeemed" boolean DEFAULT false NOT NULL,
 	"created_at" timestamp with time zone DEFAULT now() NOT NULL,
 	"updated_at" timestamp with time zone DEFAULT now() NOT NULL,
-	"deleted_at" timestamp with time zone DEFAULT null,
+	"deleted_at" timestamp with time zone,
 	CONSTRAINT "vouchers_name_unique" UNIQUE("name"),
 	CONSTRAINT "vouchers_code_unique" UNIQUE("code")
 );
