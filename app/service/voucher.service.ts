@@ -6,7 +6,7 @@ export class voucherService {
   }
 
   static async findByCode(code: string) {
-    const vouchers = await this.validateVoucher(code);
+    const voucher = await this.validateVoucher(code);
 
     return voucher
   }
@@ -18,13 +18,7 @@ export class voucherService {
 
   static async redeemVoucher(code: string) {
     const currentTime = new Date(); 
-    const vouchers = await this.validateVoucher(code);
-
-    if (vouchers.length === 0) {
-        return null
-    }
-
-    const voucher = vouchers[0]
+    const voucher = await this.validateVoucher(code);
 
     return voucherRepository.update(voucher.name, voucher.code, voucher.isActive, true);
   }
