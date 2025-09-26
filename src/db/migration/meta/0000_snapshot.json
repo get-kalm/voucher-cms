@@ -1,5 +1,5 @@
 {
-  "id": "50001d42-863c-4e1b-a24b-49df0bc2b12d",
+  "id": "108776f9-dee0-4c03-832c-487631780709",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -31,6 +31,12 @@
           "primaryKey": false,
           "notNull": true
         },
+        "code": {
+          "name": "code",
+          "type": "varchar(8)",
+          "primaryKey": false,
+          "notNull": true
+        },
         "is_active": {
           "name": "is_active",
           "type": "boolean",
@@ -38,8 +44,8 @@
           "notNull": true,
           "default": false
         },
-        "isRedeemed": {
-          "name": "isRedeemed",
+        "is_redeemed": {
+          "name": "is_redeemed",
           "type": "boolean",
           "primaryKey": false,
           "notNull": true,
@@ -76,6 +82,13 @@
           "nullsNotDistinct": false,
           "columns": [
             "name"
+          ]
+        },
+        "vouchers_code_unique": {
+          "name": "vouchers_code_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "code"
           ]
         }
       },
