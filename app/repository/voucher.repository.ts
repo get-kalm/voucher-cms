@@ -25,7 +25,7 @@ export class voucherRepository {
   }
 
   static async findByCode(code: string) {
-    return db.select().from(vouchersTable).where(eq(vouchersTable.code, code));
+    return db.select().from(vouchersTable).where(eq(vouchersTable.code, code)).limit(1);
   }
 
     static async findActiveAndUnredeemedCode(code: string, currentTime: Date) {
@@ -39,7 +39,8 @@ export class voucherRepository {
                     eq(vouchersTable.isRedeemed, false),
                     gt(vouchersTable.expiryDate, currentTime)
                 )
-            );
+            )
+            .limit(1);
     }
 
     static async update(name: string, code: string, isActive: boolean, isRedeemed: boolean) {
