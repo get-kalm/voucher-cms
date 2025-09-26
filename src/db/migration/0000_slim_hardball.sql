@@ -4,6 +4,7 @@ CREATE TABLE "vouchers" (
 	"code" varchar(8) NOT NULL,
 	"is_active" boolean DEFAULT false NOT NULL,
 	"is_redeemed" boolean DEFAULT false NOT NULL,
+	"expiry_date" timestamp with time zone NOT NULL,
 	"created_at" timestamp with time zone DEFAULT now() NOT NULL,
 	"updated_at" timestamp with time zone DEFAULT now() NOT NULL,
 	"deleted_at" timestamp with time zone,

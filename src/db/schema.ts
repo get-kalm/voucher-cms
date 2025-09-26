@@ -6,6 +6,8 @@ export const vouchersTable = pgTable("vouchers", {
   code: varchar({ length: 8 }).notNull().unique(),
   isActive: boolean("is_active").notNull().default(false),
   isRedeemed: boolean("is_redeemed").notNull().default(false),
+  expiryDate: timestamp("expiry_date", { withTimezone: true })
+    .notNull(),
   createdAt: timestamp("created_at", { withTimezone: true })
     .defaultNow()
     .notNull(),

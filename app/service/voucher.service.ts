@@ -5,9 +5,45 @@ export class voucherService {
     return await voucherRepository.findAll();
   }
 
-  static async create(name: string, isActive: boolean) {
+  static async findByCode(code: string) {
+    const voucher = await this.validateVoucher(code);
+
+    return voucher
+  }
+
+  static async create(name: string, isActive: boolean, expiryDate: Date) {
     const code = await this.validateUniqueCode();
-    return voucherRepository.create(name, code, isActive, false);
+    return voucherRepository.create(name, code, isActive, false, expiryDate);
+  }
+
+  static async redeemVoucher(code: string) {
+    const currentTime = new Date(); 
+    const voucher = await this.validateVoucher(code);
+
+    return voucherRepository.update(voucher.name, voucher.code, voucher.isActive, true);
+  }
+
+  private static async validateVoucher(code: string) {
+    const currentTime = new Date(); 
+    const vouchers = await voucherRepository.findByCode(code)
+
+    if (!vouchers || vouchers.length === 0) {
+        throw new Error(`Voucher not found`);
+    }
+    
+    const voucher = vouchers[0]
+    
+    if (!voucher.isActive) {
+        throw new Error(`Voucher not active`);
+    }
+    if (voucher.isRedeemed) {
+        throw new Error(`Voucher redeemed`);
+    }
+    if (voucher.expiryDate <= currentTime) {
+        throw new Error("voucher expired");
+    }
+
+    return voucher
   }
 
   private static async validateUniqueCode(): Promise<string> {
@@ -20,7 +56,7 @@ export class voucherService {
       code = this.generateCode();
 
       // TODO: create repo func to get all codes and loop through it to create validate uniqueness
-      const existingCode = await voucherRepository.getByCode(code);
+      const existingCode = await voucherRepository.findByCode(code);
       if (existingCode.length === 0) {
         return code;
       }
