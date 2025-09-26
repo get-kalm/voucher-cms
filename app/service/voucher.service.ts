@@ -6,7 +6,7 @@ export class voucherService {
   }
 
   static async findByCode(code: string) {
-    return await voucherRepository.findByCode(code);
+    return await voucherRepository.findActiveAndUnredeemedCode(code);
   }
 
   static async create(name: string, isActive: boolean) {
