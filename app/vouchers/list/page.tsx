@@ -60,26 +60,47 @@ export default function VoucherPage() {
   if (error) return <p className="text-red-500">{error}</p>;
 
   return (
-    <div>
-      <Link
-        href="/vouchers/create"
-        className="bg-blue-500 text-white px-4 py-2 rounded"
-      >
-        + New Voucher
-      </Link>
-      <h1 className="text-xl font-bold mb-4">Vouchers</h1>
-      <ul className="space-y-2">
-        {vouchers.map((v) => (
-          <li
-            key={v.id}
-            className="p-3 border rounded shadow-sm flex justify-between"
-          >
-            <span>{v.name}</span>
-            <span>{v.isActive ? "✅" : "❌"}</span>
-            <span>Expires: {new Date(v.expiryDate).toLocaleDateString()}</span>
-          </li>
-        ))}
-      </ul>
+    <div className="p-4">
+      <div className="flex justify-between items-center mb-4">
+        <h1 className="text-xl font-bold">Vouchers</h1>
+        <Link
+          href="/vouchers/create"
+          className="bg-blue-500 text-white px-4 py-2 rounded"
+        >
+          + New Voucher
+        </Link>
+      </div>
+
+      <table className="w-full border-collapse border border-gray-300">
+        <thead className="bg-gray-100">
+          <tr>
+            <th className="border border-gray-300 px-4 py-2 text-left">Name</th>
+            <th className="border border-gray-300 px-4 py-2">Active</th>
+            <th className="border border-gray-300 px-4 py-2">Redeemed</th>
+            <th className="border border-gray-300 px-4 py-2">Expiry Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {vouchers.map((v) => (
+            <tr key={v.id} className="hover:bg-gray-50">
+              <td className="border border-gray-300 px-4 py-2">{v.name}</td>
+              <td className="border border-gray-300 px-4 py-2 text-center">
+                {v.isActive ? "✅" : "❌"}
+              </td>
+              <td className="border border-gray-300 px-4 py-2 text-center">
+                {v.isRedeemed ? "✅" : "❌"}
+              </td>
+              <td className="border border-gray-300 px-4 py-2 text-center">
+                {new Date(v.expiryDate).toLocaleDateString("en-GB", {
+                  day: "2-digit",
+                  month: "long",
+                  year: "numeric",
+                })}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
