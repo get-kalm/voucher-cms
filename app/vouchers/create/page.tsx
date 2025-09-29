@@ -1,8 +1,10 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 
 export default function NewVoucherPage() {
+  const router = useRouter();
   const [name, setName] = useState("");
   const [isActive, setIsActive] = useState(false);
   const [expiryDate, setExpiryDate] = useState("");
@@ -30,7 +32,8 @@ export default function NewVoucherPage() {
 
     const data = await res.json();
     if (data.success) {
-      alert("Voucher created!");
+      router.push("/");
+      router.refresh();
     } else {
       alert("Error: " + data.message);
     }

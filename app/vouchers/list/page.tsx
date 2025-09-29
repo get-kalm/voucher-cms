@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 type Voucher = {
   id: string;
@@ -60,6 +61,12 @@ export default function VoucherPage() {
 
   return (
     <div>
+      <Link
+        href="/vouchers/create"
+        className="bg-blue-500 text-white px-4 py-2 rounded"
+      >
+        + New Voucher
+      </Link>
       <h1 className="text-xl font-bold mb-4">Vouchers</h1>
       <ul className="space-y-2">
         {vouchers.map((v) => (

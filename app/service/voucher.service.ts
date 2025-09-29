@@ -28,7 +28,7 @@ export class voucherService {
     const vouchers = await voucherRepository.findByCode(code)
 
     if (!vouchers || vouchers.length === 0) {
-        throw new Error(`Voucher not found`);
+        return null
     }
     
     const voucher = vouchers[0]

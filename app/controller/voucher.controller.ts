@@ -20,7 +20,7 @@ export const voucherController = {
 
       if (!voucher) {
         return NextResponse.json(
-          { success: false, error: `Voucher with code "${code}" not found` },
+          { success: false, message: "voucher not found" },
           { status: 404 }
         );
       }
