@@ -32,14 +32,15 @@
 //   );
 // }
 
-
 import VoucherForm from "./pages/voucher.form";
+import VoucherPage from "./pages/voucher.list";
 
 export default function HomePage() {
   return (
     <main className="p-6">
       <h1 className="text-xl font-bold mb-4">Home</h1>
       <VoucherForm />
+      <VoucherPage />
     </main>
   );
 }

@@ -1,11 +1,18 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function NewVoucherPage() {
   const [name, setName] = useState("");
   const [isActive, setIsActive] = useState(false);
   const [expiryDate, setExpiryDate] = useState("");
+
+  type Voucher = {
+    id: string;
+    name: string;
+    isActive: boolean;
+    expiryDate: string;
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -14,7 +21,11 @@ export default function NewVoucherPage() {
     const res = await fetch("/api/vouchers", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, is_active: isActive, expiry_date: expiryDateISO }),
+      body: JSON.stringify({
+        name,
+        isActive: isActive,
+        expiryDate: expiryDateISO,
+      }),
     });
 
     const data = await res.json();
