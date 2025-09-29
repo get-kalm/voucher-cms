@@ -6,6 +6,7 @@ import Link from "next/link";
 type Voucher = {
   id: string;
   name: string;
+  code: string;
   isActive: boolean;
   isRedeemed: boolean;
   expiryDate: string;

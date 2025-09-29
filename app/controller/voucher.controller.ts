@@ -40,6 +40,13 @@ export const voucherController = {
       const code = body.code;
       const voucher = await voucherService.redeemVoucher(code);
 
+      if (!voucher) {
+        return NextResponse.json(
+          { success: false, message: "voucher not found" },
+          { status: 404 }
+        );
+      }
+
       return NextResponse.json({
         success: true,
         message: "voucher redeemed successfully",

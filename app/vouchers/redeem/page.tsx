@@ -6,6 +6,7 @@ import { useState } from "react";
 type Voucher = {
   id: string;
   name: string;
+  code: string;
   isActive: boolean;
   isRedeemed: boolean;
   expiryDate: string;
@@ -16,16 +17,16 @@ type Voucher = {
 
 export default function RedeemPage() {
   const [code, setCode] = useState("");
-  const [voucher, setVoucher] = useState<Voucher>();
+  const [voucher, setVoucher] = useState<Voucher | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
-  const fetchVoucher = async (): Promise<Voucher> => {
+  const fetchVoucher = async () => {
     try {
       setLoading(true);
       setError("");
-      setVoucher();
+      setVoucher(null);
       setSuccessMessage("");
       const res = await fetch(`/api/vouchers/${code}`, {
         method: "GET",
@@ -49,7 +50,7 @@ export default function RedeemPage() {
     }
   };
 
-  const redeemVoucher = async (): Promise<Voucher> => {
+  const redeemVoucher = async () => {
     try {
       setLoading(true);
       setError("");
@@ -97,10 +98,10 @@ export default function RedeemPage() {
       {error && <p className="text-red-500">Error: {error}</p>}
       {voucher && (
         <div className="mt-4 border p-4 rounded">
-          <h2 className="font-bold">{voucher.name}</h2>
-          <p>Code: {voucher.code}</p>
-          <p>Active: {voucher.isActive ? "Yes" : "No"}</p>
-          <p>Expires: {voucher.expiryDate}</p>
+          <h2 className="font-bold">{voucher?.name}</h2>
+          <p>Code: {voucher?.code}</p>
+          <p>Active: {voucher?.isActive ? "Yes" : "No"}</p>
+          <p>Expires: {voucher?.expiryDate}</p>
           <button
             onClick={redeemVoucher}
             className="bg-blue-600 text-white px-4 py-2 rounded"
