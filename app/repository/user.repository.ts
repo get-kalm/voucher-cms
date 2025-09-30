@@ -8,7 +8,7 @@ export class userRepository {
         email,
         password,
       });
-    } catch (error) {
+    } catch (error: any) {
       if (error?.cause?.code === "23505") {
         throw new Error(error.cause.detail);
       }

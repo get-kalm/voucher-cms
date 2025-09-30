@@ -31,7 +31,7 @@ export class authService {
     return token;
   }
 
-  static async findByUserIDAndToken(userID: string, token: string) {
+  static async findByUserIDAndToken(userID: number, token: string) {
     try {
       const currentTime = new Date();
       const accessToken = await accessTokenRepository.findByUserIDAndToken(
@@ -44,7 +44,7 @@ export class authService {
       }
 
       return accessToken;
-    } catch (error) {
+    } catch (error: any) {
       return error.message;
     }
   }

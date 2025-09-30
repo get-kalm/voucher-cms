@@ -2,7 +2,7 @@ import { db, accessTokensTable } from "@/db/index";
 import { and, eq, gt } from "drizzle-orm";
 
 export class accessTokenRepository {
-  static async create(userID: integer, token: string, expiredAt: Date) {
+  static async create(userID: number, token: string, expiredAt: Date) {
     await db.insert(accessTokensTable).values({
       userID,
       token,
@@ -10,7 +10,7 @@ export class accessTokenRepository {
     });
   }
 
-  static async findByUserIDAndToken(userID: integer, token: string, currentTime: Date) {
+  static async findByUserIDAndToken(userID: number, token: string, currentTime: Date) {
     return db
       .select()
       .from(accessTokensTable)

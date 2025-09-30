@@ -1,4 +1,5 @@
 import { userRepository } from "@/repository/user.repository";
+import bcrypt from 'bcrypt';
 
 export class userService {
   static async create(email: string, password: string) {
