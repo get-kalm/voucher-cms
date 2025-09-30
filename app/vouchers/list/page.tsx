@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useNotification } from "@/components/NotificationProvider";
 
 type Voucher = {
   id: string;
@@ -15,31 +16,12 @@ type Voucher = {
   deletedAt: Date;
 };
 
-const getAllVouchers = async (): Promise<Voucher[]> => {
-  try {
-    const res = await fetch("/api/vouchers", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    if (!res.ok) {
-      throw new Error(`Failed to fetch vouchers: ${res.statusText}`);
-    }
-
-    const json = await res.json();
-    return json.data;
-  } catch (error) {
-    console.error("Error fetching vouchers:", error);
-    return [];
-  }
-};
-
 export default function VoucherPage() {
   const [vouchers, setVouchers] = useState<Voucher[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const notify = useNotification();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -57,6 +39,32 @@ export default function VoucherPage() {
     fetchData();
   }, []);
 
+  const getAllVouchers = async (): Promise<Voucher[]> => {
+    try {
+      const res = await fetch("/api/vouchers", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!res.ok) {
+        notify(res.statusText, false, 5000);
+      }
+
+      const json = await res.json();
+      if (!json.success) {
+        notify(json.message, false, 5000);
+        return [];
+      }
+
+      return json.data;
+    } catch (error) {
+      console.error("Error fetching vouchers:", error);
+      return [];
+    }
+  };
+
   if (loading) return <p>Loading vouchers...</p>;
   if (error) return <p className="text-red-500">{error}</p>;
 
@@ -72,26 +80,37 @@ export default function VoucherPage() {
         </Link>
       </div>
 
-      <table className="w-full border-collapse border border-gray-300">
-        <thead className="bg-gray-100">
+      <table className="w-full border-collapse rounded-lg overflow-hidden">
+        <thead className="bg-blue-600">
           <tr>
-            <th className="border border-gray-300 px-4 py-2 text-left">Name</th>
-            <th className="border border-gray-300 px-4 py-2">Active</th>
-            <th className="border border-gray-300 px-4 py-2">Redeemed</th>
-            <th className="border border-gray-300 px-4 py-2">Expiry Date</th>
+            <th className="px-4 py-3 text-left text-white font-semibold">
+              Name
+            </th>
+            <th className="px-4 py-3 text-center text-white font-semibold">
+              Active
+            </th>
+            <th className="px-4 py-3 text-center text-white font-semibold">
+              Redeemed
+            </th>
+            <th className="px-4 py-3 text-center text-white font-semibold">
+              Expiry Date
+            </th>
           </tr>
         </thead>
         <tbody>
           {vouchers.map((v) => (
-            <tr key={v.id} className="hover:bg-gray-50">
-              <td className="border border-gray-300 px-4 py-2">{v.name}</td>
-              <td className="border border-gray-300 px-4 py-2 text-center">
+            <tr
+              key={v.id}
+              className="odd:bg-gray-800 even:bg-gray-900 hover:bg-gray-700 transition-colors"
+            >
+              <td className="px-4 py-3 text-gray-100">{v.name}</td>
+              <td className="px-4 py-3 text-center">
                 {v.isActive ? "✅" : "❌"}
               </td>
-              <td className="border border-gray-300 px-4 py-2 text-center">
+              <td className="px-4 py-3 text-center">
                 {v.isRedeemed ? "✅" : "❌"}
               </td>
-              <td className="border border-gray-300 px-4 py-2 text-center">
+              <td className="px-4 py-3 text-center text-gray-300">
                 {new Date(v.expiryDate).toLocaleDateString("en-GB", {
                   day: "2-digit",
                   month: "long",

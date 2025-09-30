@@ -36,7 +36,7 @@ import VoucherPage from "./vouchers/list/page";
 
 export default function HomePage() {
   return (
-    <main className="p-6">
+    <main className="min-h-screen bg-gray-900 text-gray-100 p-6">
       <h1 className="text-xl font-bold mb-4">Home</h1>
       <VoucherPage />
     </main>

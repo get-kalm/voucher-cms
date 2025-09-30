@@ -1,7 +1,8 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useNotification } from "@/components/NotificationProvider";
 
 export default function NewVoucherPage() {
   const router = useRouter();
@@ -9,12 +10,7 @@ export default function NewVoucherPage() {
   const [isActive, setIsActive] = useState(false);
   const [expiryDate, setExpiryDate] = useState("");
 
-  type Voucher = {
-    id: string;
-    name: string;
-    isActive: boolean;
-    expiryDate: string;
-  };
+  const notify = useNotification();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,57 +21,77 @@ export default function NewVoucherPage() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         name,
-        isActive: isActive,
+        isActive,
         expiryDate: expiryDateISO,
       }),
     });
 
-    const data = await res.json();
-    if (data.success) {
+    const json = await res.json();
+    if (json.success) {
+        notify("Voucher created 🎉", true, 5000);
       router.push("/");
       router.refresh();
     } else {
-      alert("Error: " + data.message);
+      notify(json.message, false, 5000);
     }
   };
 
   return (
-    <div className="p-6">
-      <h1 className="text-xl font-bold mb-4">Create New Voucher</h1>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4 max-w-sm">
-        <input
-          type="text"
-          placeholder="Voucher name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="border p-2 rounded"
-          required
-        />
+    <div className="min-h-screen bg-gray-900 text-gray-100 flex items-center justify-center p-6">
+      <div className="w-full max-w-md bg-gray-800 rounded-2xl shadow-lg p-8">
+        <h1 className="text-2xl font-bold text-center mb-6 text-blue-400">
+          Create New Voucher
+        </h1>
+        <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+          {/* Voucher Name */}
+          <div className="flex flex-col gap-2">
+            <label className="text-sm font-medium text-gray-300">
+              Voucher Name
+            </label>
+            <input
+              type="text"
+              placeholder="Enter voucher name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="border border-gray-700 bg-gray-900 text-gray-100 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+          </div>
 
-        <label className="flex items-center gap-2">
-          <input
-            type="checkbox"
-            checked={isActive}
-            onChange={(e) => setIsActive(e.target.checked)}
-          />
-          Active
-        </label>
+          {/* Active Checkbox */}
+          <div className="flex items-center gap-3">
+            <input
+              type="checkbox"
+              checked={isActive}
+              onChange={(e) => setIsActive(e.target.checked)}
+              className="w-5 h-5 text-blue-500 bg-gray-900 border-gray-700 rounded focus:ring-2 focus:ring-blue-500"
+            />
+            <label className="text-sm font-medium text-gray-300">Active</label>
+          </div>
 
-        <input
-          type="datetime-local"
-          value={expiryDate}
-          onChange={(e) => setExpiryDate(e.target.value)}
-          className="border p-2 rounded"
-          required
-        />
+          {/* Expiry Date */}
+          <div className="flex flex-col gap-2">
+            <label className="text-sm font-medium text-gray-300">
+              Expiry Date
+            </label>
+            <input
+              type="date"
+              value={expiryDate}
+              onChange={(e) => setExpiryDate(e.target.value)}
+              className="border border-gray-700 bg-gray-900 text-gray-100 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+          </div>
 
-        <button
-          type="submit"
-          className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
-        >
-          Submit
-        </button>
-      </form>
+          {/* Submit */}
+          <button
+            type="submit"
+            className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 rounded-lg transition-colors"
+          >
+            Submit
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
