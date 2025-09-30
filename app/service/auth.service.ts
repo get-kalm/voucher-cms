@@ -22,7 +22,7 @@ export class authService {
       return;
     }
 
-    const token = signJwt({ id: user.id, email: user.email });
+    const token = await signJwt({ id: user.id, email: user.email });
     const currentTime = new Date();
     const expiredAt = new Date(
       currentTime.setMonth(currentTime.getDate() + 7)

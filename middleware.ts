@@ -23,7 +23,7 @@ export async function middleware(req: Request) {
   const payload = await verifyJwt<{ id: string; email: string }>(token);
 
   if (!payload) {
-    rreturn NextResponse.json(
+    return NextResponse.json(
       { success: false, message: "invalid authorization" },
       { status: 500 }
     );
