@@ -24,7 +24,8 @@
       "@/db/*": ["./src/db/*"],
       "@/controller/*": ["./app/controller/*"],
       "@/service/*": ["./app/service/*"],
-      "@/repository/*": ["./app/repository/*"]
+      "@/repository/*": ["./app/repository/*"],
+      "@/components/*": ["./app/components/*"]
     }
   },
   "include": [

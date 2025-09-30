@@ -1,3 +1,6 @@
+import "./ui/global.css";
+import { NotificationProvider } from "@/components/NotificationProvider";
+
 export default function RootLayout({
   children,
 }: {
@@ -5,7 +8,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <NotificationProvider>{children}</NotificationProvider>
+      </body>
     </html>
   );
 }
