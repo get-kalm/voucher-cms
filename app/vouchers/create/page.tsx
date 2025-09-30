@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useNotification } from "@/components/NotificationProvider";
+import { API } from "@/lib/api";
 
 export default function NewVoucherPage() {
   const router = useRouter();
@@ -11,14 +12,18 @@ export default function NewVoucherPage() {
   const [expiryDate, setExpiryDate] = useState("");
 
   const notify = useNotification();
+  const token = API.getToken()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const expiryDateISO = new Date(expiryDate);
-    const res = await fetch("/api/vouchers", {
+    const res = await fetch(API.vouchers.create, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
       body: JSON.stringify({
         name,
         isActive,
@@ -28,7 +33,7 @@ export default function NewVoucherPage() {
 
     const json = await res.json();
     if (json.success) {
-        notify("Voucher created 🎉", true, 5000);
+      notify("Voucher created 🎉", true, 5000);
       router.push("/");
       router.refresh();
     } else {

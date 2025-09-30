@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useNotification } from "@/components/NotificationProvider";
+import { API } from "@/lib/api";
 
 type Voucher = {
   id: string;
@@ -22,6 +23,7 @@ export default function VoucherPage() {
   const [error, setError] = useState<string | null>(null);
 
   const notify = useNotification();
+  const token = API.getToken()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,10 +43,11 @@ export default function VoucherPage() {
 
   const getAllVouchers = async (): Promise<Voucher[]> => {
     try {
-      const res = await fetch("/api/vouchers", {
+      const res = await fetch(API.vouchers.list, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
+          Authorization: token,
         },
       });
 

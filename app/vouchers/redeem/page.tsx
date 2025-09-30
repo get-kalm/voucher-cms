@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useNotification } from "@/components/NotificationProvider";
+import { API } from "@/lib/api";
 
 // TODO: create global model or get from schema
 type Voucher = {
@@ -23,15 +24,17 @@ export default function RedeemPage() {
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   const notify = useNotification();
+  const token = API.getToken();
 
   const fetchVoucher = async () => {
     try {
       setLoading(true);
       setVoucher(null);
-      const res = await fetch(`/api/vouchers/${code}`, {
+      const res = await fetch(API.vouchers.findByCode(code), {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
+          Authorization: token,
         },
       });
 
@@ -52,10 +55,11 @@ export default function RedeemPage() {
   const redeemVoucher = async () => {
     try {
       setLoading(true);
-      const res = await fetch(`/api/vouchers/redeem`, {
+      const res = await fetch(API.vouchers.redeem, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: token,
         },
         body: JSON.stringify({
           code,
