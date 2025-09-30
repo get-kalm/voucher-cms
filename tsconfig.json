@@ -22,6 +22,7 @@
     "paths": {
       "@/*": ["./*"],
       "@/db/*": ["./src/db/*"],
+      "@/lib/*": ["./app/lib/*"],
       "@/controller/*": ["./app/controller/*"],
       "@/service/*": ["./app/service/*"],
       "@/repository/*": ["./app/repository/*"],
