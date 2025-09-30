@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { authService } from "@/service/auth.service";
 
-export const userController = {
+export const authController = {
   async register(req: NextRequest) {
     try {
       const { email, password } = await req.json();
@@ -42,8 +42,8 @@ export const userController = {
           { status: 500 }
         );
       }
-      await authService.login(email, password);
-      return NextResponse.json({ success: true }, { status: 201 });
+      const res = await authService.login(email, password);
+      return NextResponse.json({ success: true, token: res }, { status: 201 });
     } catch (err: any) {
       return NextResponse.json(
         { success: false, message: err.message },
