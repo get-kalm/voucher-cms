@@ -1,7 +1,9 @@
 import { db } from "./db";
-import { vouchersTable } from "./schema";
+import { accessTokensTable, usersTable, vouchersTable } from "./schema";
 
 export { 
     db,
-    vouchersTable
+    accessTokensTable,
+    vouchersTable,
+    usersTable
 };

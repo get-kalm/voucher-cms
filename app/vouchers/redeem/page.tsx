@@ -1,6 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import { useNotification } from "@/components/NotificationProvider";
+import { API, apiFetch } from "@/lib/api";
+import { getBearerToken } from "@/lib/token";
+import ProtectedRoute from "@/components/ProtectedRoute";
 
 // TODO: create global model or get from schema
 type Voucher = {
@@ -19,33 +23,29 @@ export default function RedeemPage() {
   const [code, setCode] = useState("");
   const [voucher, setVoucher] = useState<Voucher | null>(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+
+  const notify = useNotification();
+  const token = getBearerToken();
 
   const fetchVoucher = async () => {
     try {
       setLoading(true);
-      setError("");
       setVoucher(null);
-      setSuccessMessage("");
-      const res = await fetch(`/api/vouchers/${code}`, {
+      const res = await apiFetch(API.vouchers.findByCode(code), {
         method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
       });
 
       setLoading(false);
 
       const json = await res.json();
       if (!json.success) {
-        setError(json.message);
+        notify(json.message, false, 5000);
       }
 
       setVoucher(json.data);
     } catch (error) {
       setLoading(false);
-
       console.log("Error fetching voucher:", error);
     }
   };
@@ -53,12 +53,8 @@ export default function RedeemPage() {
   const redeemVoucher = async () => {
     try {
       setLoading(true);
-      setError("");
-      const res = await fetch(`/api/vouchers/redeem`, {
+      const res = await apiFetch(API.vouchers.redeem, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
         body: JSON.stringify({
           code,
         }),
@@ -67,10 +63,10 @@ export default function RedeemPage() {
       setLoading(false);
       const json = await res.json();
       if (!json.success) {
-        setError(json.message);
+        notify(json.message, false, 5000);
+      } else {
+        notify("Redeem successful 🎉", true, 5000);
       }
-
-      setSuccessMessage(json.message);
     } catch (error) {
       setLoading(false);
       console.log("Error redeeming voucher:", error);
@@ -78,38 +74,77 @@ export default function RedeemPage() {
   };
 
   return (
-    <div className="p-4">
-      <input
-        type="text"
-        placeholder="Enter voucher code"
-        value={code}
-        onChange={(e) => setCode(e.target.value)}
-        className="border p-2 rounded mr-2"
-      />
-      <button
-        onClick={fetchVoucher}
-        className="bg-blue-600 text-white px-4 py-2 rounded"
-      >
-        Search
-      </button>
+    <ProtectedRoute>
+      <div className="min-h-screen bg-gray-900 text-gray-100 flex items-center justify-center p-6">
+        <div className="w-full max-w-md bg-gray-800 rounded-2xl shadow-lg p-8">
+          <h1 className="text-2xl font-bold text-center mb-6 text-blue-400">
+            Redeem Voucher
+          </h1>
 
-      {loading && <p>Loading...</p>}
-      {successMessage && <p>{successMessage}</p>}
-      {error && <p className="text-red-500">Error: {error}</p>}
-      {voucher && (
-        <div className="mt-4 border p-4 rounded">
-          <h2 className="font-bold">{voucher?.name}</h2>
-          <p>Code: {voucher?.code}</p>
-          <p>Active: {voucher?.isActive ? "Yes" : "No"}</p>
-          <p>Expires: {voucher?.expiryDate}</p>
-          <button
-            onClick={redeemVoucher}
-            className="bg-blue-600 text-white px-4 py-2 rounded"
-          >
-            Redeem
-          </button>
+          {/* Search Input */}
+          <div className="flex gap-3 mb-6">
+            <input
+              type="text"
+              placeholder="Enter voucher code"
+              value={code}
+              onChange={(e) => setCode(e.target.value)}
+              className="flex-1 border border-gray-700 bg-gray-900 text-gray-100 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            <button
+              onClick={fetchVoucher}
+              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors"
+            >
+              Search
+            </button>
+          </div>
+
+          {/* Loading / Error / Success */}
+          {loading && <p className="text-gray-400">Loading...</p>}
+
+          {/* Voucher Preview */}
+          {voucher && (
+            <div className="mt-6 rounded-2xl shadow-lg p-6 border border-blue-800/40 bg-blue-900/30">
+              {/* Header */}
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="font-bold text-xl text-blue-400">
+                  {voucher?.name}
+                </h2>
+                <span
+                  className={`px-3 py-1 text-sm font-medium rounded-full ${
+                    voucher?.isActive
+                      ? "bg-green-600/20 text-green-400 border border-green-600/40"
+                      : "bg-red-600/20 text-red-400 border border-red-600/40"
+                  }`}
+                >
+                  {voucher?.isActive ? "Active" : "Inactive"}
+                </span>
+              </div>
+
+              {/* Body */}
+              <div className="space-y-3 text-gray-300">
+                <p>
+                  <span className="font-medium text-gray-400">
+                    Expires on{" "}
+                    {new Date(voucher?.expiryDate).toLocaleDateString("en-GB", {
+                      day: "2-digit",
+                      month: "long",
+                      year: "numeric",
+                    })}
+                  </span>{" "}
+                </p>
+              </div>
+
+              {/* Footer */}
+              <button
+                onClick={redeemVoucher}
+                className="mt-6 w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 rounded-lg transition-colors"
+              >
+                Redeem
+              </button>
+            </div>
+          )}
         </div>
-      )}
-    </div>
+      </div>
+    </ProtectedRoute>
   );
 }

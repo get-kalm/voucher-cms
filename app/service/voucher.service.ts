@@ -13,6 +13,15 @@ export class voucherService {
 
   static async create(name: string, isActive: boolean, expiryDate: Date) {
     const code = await this.validateUniqueCode();
+
+    const currentTime = new Date();
+    const minimumExpiryDate = new Date(
+      currentTime.setMonth(currentTime.getMonth() + 1)
+    );
+    if (expiryDate < minimumExpiryDate) {
+        throw new Error("expiry date must be at least 1 month from now");
+    }
+
     return voucherRepository.create(name, code, isActive, false, expiryDate);
   }
 
