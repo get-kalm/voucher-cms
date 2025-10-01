@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import { verifyJwt } from "@/lib/jwt";
+import type { NextRequest } from "next/server";
 
-export async function middleware(req: Request) {
+export async function middleware(req: NextRequest) {
   const authHeader = req.headers.get("authorization");
 
   if (!authHeader) {
@@ -37,6 +38,7 @@ export async function middleware(req: Request) {
   requestHeaders.set("x-user-role", payload.role);
 
   // Check role
+  console.log("req.nextUrl:", req.nextUrl)
   if (req.nextUrl.pathname.startsWith("/api/admin")) {
     if (!payload.role) {
       return NextResponse.json(
