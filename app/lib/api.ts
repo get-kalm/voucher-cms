@@ -1,3 +1,5 @@
+import { removeToken, getBearerToken } from "./token";
+
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000/api";
 const EXTERNAL_URL = `${BASE_URL}/external`;
 const ADMIN_URL = `${BASE_URL}/admin`;
@@ -16,12 +18,21 @@ export const API = {
   },
 };
 
-export function getToken() {
-  const localStorageToken = localStorage.getItem("token");
-  const bearerToken = `Bearer ${localStorageToken}`;
-  return bearerToken;
-}
+export async function apiFetch(url: string, options: RequestInit = {}) {
+  const res = await fetch(url, {
+    ...options,
+    headers: {
+      ...options.headers,
+      "Content-Type": "application/json",
+      Authorization: getBearerToken() || "",
+    },
+  });
 
-export function setToken(token: string) {
-  localStorage.setItem("token", token);
+  if (res.status === 401) {
+    removeToken();
+    window.location.href = "/login";
+    return Promise.reject(new Error("Unauthorized"));
+  }
+
+  return res;
 }

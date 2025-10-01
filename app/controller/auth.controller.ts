@@ -17,8 +17,8 @@ export const authController = {
           { status: 500 }
         );
       }
-      await authService.register(email, password);
-      return NextResponse.json({ success: true }, { status: 201 });
+      const token = await authService.register(email, password);
+      return NextResponse.json({ success: true, token: token  }, { status: 201 });
     } catch (err: any) {
       return NextResponse.json(
         { success: false, message: err.message },
@@ -42,8 +42,8 @@ export const authController = {
           { status: 500 }
         );
       }
-      const res = await authService.login(email, password);
-      return NextResponse.json({ success: true, token: res }, { status: 201 });
+      const token = await authService.login(email, password);
+      return NextResponse.json({ success: true, token: token }, { status: 201 });
     } catch (err: any) {
       return NextResponse.json(
         { success: false, message: err.message },

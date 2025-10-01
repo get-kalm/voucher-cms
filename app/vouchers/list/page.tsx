@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useNotification } from "@/components/NotificationProvider";
-import { API } from "@/lib/api";
+import { API, apiFetch } from "@/lib/api";
+import ProtectedRoute from "@/components/ProtectedRoute";
 
 type Voucher = {
   id: string;
@@ -23,7 +24,6 @@ export default function VoucherPage() {
   const [error, setError] = useState<string | null>(null);
 
   const notify = useNotification();
-  const token = API.getToken()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,12 +43,8 @@ export default function VoucherPage() {
 
   const getAllVouchers = async (): Promise<Voucher[]> => {
     try {
-      const res = await fetch(API.vouchers.list, {
+      const res = await apiFetch(API.vouchers.list, {
         method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: token,
-        },
       });
 
       if (!res.ok) {
@@ -72,58 +68,60 @@ export default function VoucherPage() {
   if (error) return <p className="text-red-500">{error}</p>;
 
   return (
-    <div className="p-4">
-      <div className="flex justify-between items-center mb-4">
-        <h1 className="text-xl font-bold">Vouchers</h1>
-        <Link
-          href="/vouchers/create"
-          className="bg-blue-500 text-white px-4 py-2 rounded"
-        >
-          + New Voucher
-        </Link>
-      </div>
+    <ProtectedRoute>
+      <div className="p-4">
+        <div className="flex justify-between items-center mb-4">
+          <h1 className="text-xl font-bold">Vouchers</h1>
+          <Link
+            href="/vouchers/create"
+            className="bg-blue-500 text-white px-4 py-2 rounded"
+          >
+            + New Voucher
+          </Link>
+        </div>
 
-      <table className="w-full border-collapse rounded-lg overflow-hidden">
-        <thead className="bg-blue-600">
-          <tr>
-            <th className="px-4 py-3 text-left text-white font-semibold">
-              Name
-            </th>
-            <th className="px-4 py-3 text-center text-white font-semibold">
-              Active
-            </th>
-            <th className="px-4 py-3 text-center text-white font-semibold">
-              Redeemed
-            </th>
-            <th className="px-4 py-3 text-center text-white font-semibold">
-              Expiry Date
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {vouchers.map((v) => (
-            <tr
-              key={v.id}
-              className="odd:bg-gray-800 even:bg-gray-900 hover:bg-gray-700 transition-colors"
-            >
-              <td className="px-4 py-3 text-gray-100">{v.name}</td>
-              <td className="px-4 py-3 text-center">
-                {v.isActive ? "✅" : "❌"}
-              </td>
-              <td className="px-4 py-3 text-center">
-                {v.isRedeemed ? "✅" : "❌"}
-              </td>
-              <td className="px-4 py-3 text-center text-gray-300">
-                {new Date(v.expiryDate).toLocaleDateString("en-GB", {
-                  day: "2-digit",
-                  month: "long",
-                  year: "numeric",
-                })}
-              </td>
+        <table className="w-full border-collapse rounded-lg overflow-hidden">
+          <thead className="bg-blue-600">
+            <tr>
+              <th className="px-4 py-3 text-left text-white font-semibold">
+                Name
+              </th>
+              <th className="px-4 py-3 text-center text-white font-semibold">
+                Active
+              </th>
+              <th className="px-4 py-3 text-center text-white font-semibold">
+                Redeemed
+              </th>
+              <th className="px-4 py-3 text-center text-white font-semibold">
+                Expiry Date
+              </th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+          </thead>
+          <tbody>
+            {vouchers.map((v) => (
+              <tr
+                key={v.id}
+                className="odd:bg-gray-800 even:bg-gray-900 hover:bg-gray-700 transition-colors"
+              >
+                <td className="px-4 py-3 text-gray-100">{v.name}</td>
+                <td className="px-4 py-3 text-center">
+                  {v.isActive ? "✅" : "❌"}
+                </td>
+                <td className="px-4 py-3 text-center">
+                  {v.isRedeemed ? "✅" : "❌"}
+                </td>
+                <td className="px-4 py-3 text-center text-gray-300">
+                  {new Date(v.expiryDate).toLocaleDateString("en-GB", {
+                    day: "2-digit",
+                    month: "long",
+                    year: "numeric",
+                  })}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </ProtectedRoute>
   );
 }

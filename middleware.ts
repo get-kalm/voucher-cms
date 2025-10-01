@@ -7,14 +7,14 @@ export async function middleware(req: Request) {
   if (!authHeader) {
     return NextResponse.json(
       { success: false, message: "missing authorization" },
-      { status: 500 }
+      { status: 401 }
     );
   }
 
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
     return NextResponse.json(
       { success: false, message: "missing authorization" },
-      { status: 500 }
+      { status: 401 }
     );
   }
 
@@ -25,7 +25,7 @@ export async function middleware(req: Request) {
   if (!payload) {
     return NextResponse.json(
       { success: false, message: "invalid authorization" },
-      { status: 500 }
+      { status: 401 }
     );
   }
 

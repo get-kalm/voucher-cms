@@ -13,8 +13,11 @@ export async function signJwt(payload: JWTPayload, expiresIn = "7d") {
 export async function verifyJwt<T>(token: string): Promise<T | null> {
   try {
     const { payload } = await jwtVerify(token, secret);
+    if (!payload) {
+        return null;
+    }
     return payload as T;
   } catch (error: any) {
-    return error.message;
+    return null;
   }
 }

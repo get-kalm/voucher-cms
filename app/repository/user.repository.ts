@@ -4,10 +4,12 @@ import { eq } from "drizzle-orm";
 export class userRepository {
   static async create(email: string, password: string) {
     try {
-      await db.insert(usersTable).values({
+      const [user] = await db.insert(usersTable).values({
         email,
         password,
-      });
+      }).returning();
+
+      return user;
     } catch (error: any) {
       if (error?.cause?.code === "23505") {
         throw new Error(error.cause.detail);

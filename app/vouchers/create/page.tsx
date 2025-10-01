@@ -3,7 +3,9 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useNotification } from "@/components/NotificationProvider";
-import { API } from "@/lib/api";
+import { API, apiFetch } from "@/lib/api";
+import { getBearerToken } from "@/lib/token";
+import ProtectedRoute from "@/components/ProtectedRoute";
 
 export default function NewVoucherPage() {
   const router = useRouter();
@@ -12,18 +14,14 @@ export default function NewVoucherPage() {
   const [expiryDate, setExpiryDate] = useState("");
 
   const notify = useNotification();
-  const token = API.getToken()
+  const token = getBearerToken()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const expiryDateISO = new Date(expiryDate);
-    const res = await fetch(API.vouchers.create, {
+    const res = await apiFetch(API.vouchers.create, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: token,
-      },
       body: JSON.stringify({
         name,
         isActive,
@@ -42,6 +40,7 @@ export default function NewVoucherPage() {
   };
 
   return (
+    <ProtectedRoute>
     <div className="min-h-screen bg-gray-900 text-gray-100 flex items-center justify-center p-6">
       <div className="w-full max-w-md bg-gray-800 rounded-2xl shadow-lg p-8">
         <h1 className="text-2xl font-bold text-center mb-6 text-blue-400">
@@ -98,5 +97,6 @@ export default function NewVoucherPage() {
         </form>
       </div>
     </div>
+    </ProtectedRoute>
   );
 }

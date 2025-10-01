@@ -5,8 +5,22 @@ import bcrypt from "bcrypt";
 
 export class authService {
   static async register(email: string, password: string) {
-    const hashedPassword = await bcrypt.hash(password, 10);
-    return userRepository.create(email, hashedPassword);
+    try {
+      const hashedPassword = await bcrypt.hash(password, 10);
+
+      const user = await userRepository.create(email, hashedPassword);
+
+      const token = await signJwt({ id: user.id, email: user.email });
+      const currentTime = new Date();
+      const expiredAt = new Date(
+        currentTime.setMonth(currentTime.getDate() + 7)
+      );
+
+      await accessTokenRepository.create(user.id, token, expiredAt);
+      return token;
+    } catch (error: any) {
+      throw new Error(error.message);
+    }
   }
 
   static async login(email: string, password: string) {
@@ -24,9 +38,7 @@ export class authService {
 
     const token = await signJwt({ id: user.id, email: user.email });
     const currentTime = new Date();
-    const expiredAt = new Date(
-      currentTime.setMonth(currentTime.getDate() + 7)
-    );
+    const expiredAt = new Date(currentTime.setMonth(currentTime.getDate() + 7));
     await accessTokenRepository.create(user.id, token, expiredAt);
     return token;
   }
