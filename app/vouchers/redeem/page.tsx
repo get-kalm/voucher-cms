@@ -100,14 +100,10 @@ export default function RedeemPage() {
 
           {/* Loading / Error / Success */}
           {loading && <p className="text-gray-400">Loading...</p>}
-          {/* {successMessage && (
-          <p className="text-green-400 font-medium mb-3">{successMessage}</p>
-        )} */}
-          {/* {error && <p className="text-red-400 font-medium mb-3">{error}</p>} */}
 
           {/* Voucher Preview */}
           {voucher && (
-            <div className="mt-6 bg-gray-800 rounded-2xl shadow-lg p-6 border border-gray-700">
+            <div className="mt-6 rounded-2xl shadow-lg p-6 border border-blue-800/40 bg-blue-900/30">
               {/* Header */}
               <div className="flex items-center justify-between mb-4">
                 <h2 className="font-bold text-xl text-blue-400">
