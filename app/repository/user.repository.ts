@@ -16,7 +16,7 @@ export class userRepository {
         throw new Error(error.cause.detail);
       }
 
-      throw new Error("Failed to create user: " + error.message);
+      throw new Error("Failed to create user: " + error);
     }
   }
 
