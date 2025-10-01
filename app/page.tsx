@@ -32,13 +32,12 @@
 //   );
 // }
 
-import VoucherPage from "./vouchers/list/page";
+import RedeemPage from "./vouchers/redeem/page";
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-gray-900 text-gray-100 p-6">
-      <h1 className="text-xl font-bold mb-4">Home</h1>
-      <VoucherPage />
+    <main>
+      <RedeemPage />
     </main>
   );
 }

@@ -19,8 +19,10 @@ export async function middleware(req: Request) {
   }
 
   const token = authHeader.split(" ")[1];
-  
-  const payload = await verifyJwt<{ id: string; email: string }>(token);
+
+  const payload = await verifyJwt<{ id: string; email: string; role: string }>(
+    token
+  );
 
   if (!payload) {
     return NextResponse.json(
@@ -32,6 +34,24 @@ export async function middleware(req: Request) {
   const requestHeaders = new Headers(req.headers);
   requestHeaders.set("x-user-id", payload.id);
   requestHeaders.set("x-user-email", payload.email);
+  requestHeaders.set("x-user-role", payload.role);
+
+  // Check role
+  if (req.nextUrl.pathname.startsWith("/api/admin")) {
+    if (!payload.role) {
+      return NextResponse.json(
+        { success: false, message: "Unauthorized" },
+        { status: 401 }
+      );
+    }
+
+    if (payload.role !== "admin") {
+      return NextResponse.json(
+        { success: false, message: "Forbidden" },
+        { status: 403 }
+      );
+    }
+  }
 
   return NextResponse.next({
     request: {

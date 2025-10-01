@@ -2,11 +2,12 @@ import { db, usersTable } from "@/db/index";
 import { eq } from "drizzle-orm";
 
 export class userRepository {
-  static async create(email: string, password: string) {
+  static async create(email: string, password: string, role: string) {
     try {
       const [user] = await db.insert(usersTable).values({
         email,
         password,
+        role,
       }).returning();
 
       return user;
@@ -15,7 +16,7 @@ export class userRepository {
         throw new Error(error.cause.detail);
       }
 
-      throw new Error("Failed to create voucher: " + error.message);
+      throw new Error("Failed to create user: " + error.message);
     }
   }
 

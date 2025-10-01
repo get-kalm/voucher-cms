@@ -9,7 +9,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <NotificationProvider>{children}</NotificationProvider>
+        <NotificationProvider>
+          <main className="min-h-screen bg-gray-900 text-gray-100 p-6">
+            <div className="max-w-7xl mx-auto">{children}</div>
+          </main>
+        </NotificationProvider>
       </body>
     </html>
   );

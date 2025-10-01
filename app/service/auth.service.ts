@@ -8,9 +8,9 @@ export class authService {
     try {
       const hashedPassword = await bcrypt.hash(password, 10);
 
-      const user = await userRepository.create(email, hashedPassword);
+      const user = await userRepository.create(email, hashedPassword, "user");
 
-      const token = await signJwt({ id: user.id, email: user.email });
+      const token = await signJwt({ id: user.id, email: user.email, role: user.role });
       const currentTime = new Date();
       const expiredAt = new Date(
         currentTime.setMonth(currentTime.getDate() + 7)
@@ -36,7 +36,7 @@ export class authService {
       return;
     }
 
-    const token = await signJwt({ id: user.id, email: user.email });
+    const token = await signJwt({ id: user.id, email: user.email, role: user.role });
     const currentTime = new Date();
     const expiredAt = new Date(currentTime.setMonth(currentTime.getDate() + 7));
     await accessTokenRepository.create(user.id, token, expiredAt);

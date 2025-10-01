@@ -69,11 +69,11 @@ export default function VoucherPage() {
 
   return (
     <ProtectedRoute>
-      <div className="p-4">
+      <main>
         <div className="flex justify-between items-center mb-4">
           <h1 className="text-xl font-bold">Vouchers</h1>
           <Link
-            href="/vouchers/create"
+            href="/admin/vouchers/create"
             className="bg-blue-500 text-white px-4 py-2 rounded"
           >
             + New Voucher
@@ -121,7 +121,7 @@ export default function VoucherPage() {
             ))}
           </tbody>
         </table>
-      </div>
+      </main>
     </ProtectedRoute>
   );
 }
