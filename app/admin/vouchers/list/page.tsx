@@ -69,7 +69,7 @@ export default function VoucherPage() {
 
   return (
     <ProtectedRoute>
-      <main>
+      <main className="flex-1 flex flex-col items-stretch justify-start p-6">
         <div className="flex justify-between items-center mb-4">
           <h1 className="text-xl font-bold">Vouchers</h1>
           <Link

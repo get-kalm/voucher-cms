@@ -58,7 +58,8 @@ export class authService {
     }
   }
 
-  static async logout(userID: string, token: string) {
+  static async logout(userIDStr: string, token: string) {
+    const userID = +userIDStr
     await accessTokenRepository.deleteByUserIDAndToken(userID, token);
   }
 

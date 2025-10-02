@@ -17,14 +17,18 @@ export default function ProtectedRoute({
   useEffect(() => {
     const checkToken = async () => {
       const token = getToken();
-      
+
       if (!token) {
         router.replace("/login");
+        setIsAuthorized(true);
+        setIsChecking(false);
         return;
       }
 
       if (pathName == "/login" || pathName == "register") {
         router.replace("/");
+        setIsAuthorized(true);
+        setIsChecking(false);
         return;
       }
 

@@ -60,9 +60,17 @@ export const authController = {
 
   async logout(req: NextRequest) {
     try {
-      const userID = req.headers.get("x-user-id");
+      const userIDStr = req.headers.get("x-user-id");
       const token = req.headers.get("x-user-token");
-      await authService.logout(userID, token);
+
+      if (!userIDStr || !token) {
+        return NextResponse.json(
+          { success: false, message: "Missing authentication headers" },
+          { status: 400 }
+        );
+      }
+
+      await authService.logout(userIDStr, token);
       return NextResponse.json({ success: true }, { status: 200 });
     } catch (err: any) {
       return NextResponse.json(

@@ -28,7 +28,7 @@ export class accessTokenRepository {
       .limit(1);
   }
 
-  static async deleteByUserIDAndToken(userID: string, token: string) {
+  static async deleteByUserIDAndToken(userID: number, token: string) {
     return await db
       .delete(accessTokensTable)
       .where(
