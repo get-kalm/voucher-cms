@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { API, apiFetch } from "@/lib/api";
 import { removeToken } from '../lib/token';
 
 export default function LogoutButton() {
@@ -9,10 +10,21 @@ export default function LogoutButton() {
 
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleLogout = () => {
-    removeToken();
-    router.replace("/login");
+  const handleLogout = async () => {
+    const res = await apiFetch(API.auth.logout, {
+      method: "POST",
+    });
 
+    const data = await res.json();
+
+    if (res.ok) {
+        router.replace("/login");
+    } else {
+        // TODO: use notification provider
+      alert(data.message || "logout failed");
+    }
+
+    removeToken();
     setIsOpen(false);
   };
 
