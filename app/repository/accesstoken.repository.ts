@@ -1,5 +1,5 @@
 import { db, accessTokensTable } from "@/db/index";
-import { and, eq, gt } from "drizzle-orm";
+import { and, eq, gt, sql } from "drizzle-orm";
 
 export class accessTokenRepository {
   static async create(userID: number, token: string, expiredAt: Date) {
@@ -31,9 +31,7 @@ export class accessTokenRepository {
   static async deleteByUserIDAndToken(userID: number, token: string) {
     return await db
       .update(accessTokensTable)
-      .set({
-        deletedAt: new Date(), // or new Date() if you want JS timestamp
-      })
+      .set({ deletedAt: sql`NOW()` })
       .where(
         and(
           eq(accessTokensTable.userID, userID),
