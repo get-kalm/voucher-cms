@@ -1,6 +1,7 @@
 // pages/api/test-db.ts
 import type { NextApiRequest, NextApiResponse } from 'next';
 import postgres from 'postgres';
+import { drizzle } from "drizzle-orm/postgres-js";
 
 const sql = postgres(process.env.DATABASE_URL!, {
   ssl: {

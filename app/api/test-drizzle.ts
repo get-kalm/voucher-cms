@@ -3,6 +3,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { usersTable } from "@/db/index";
 import postgres from 'postgres';
 import { eq } from "drizzle-orm";
+import { drizzle } from "drizzle-orm/postgres-js";
 
 const sql = postgres(process.env.DATABASE_URL!, {
   ssl: {
@@ -17,7 +18,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const user = await db
     .select()
       .from(usersTable)
-      .where(eq(usersTable.email, email))
+      .where(eq(usersTable.email, "rayendratimotius@gmail.com"))
       .limit(1);
     res.status(200).json({ success: true, user });
   } catch (error) {
