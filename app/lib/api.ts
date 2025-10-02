@@ -9,6 +9,7 @@ export const API = {
   auth: {
     login: `${EXTERNAL_URL}/login`,
     register: `${EXTERNAL_URL}/register`,
+    logout: `${INTERNAL_URL}/logout`
   },
   vouchers: {
     create: `${ADMIN_URL}/vouchers`,
