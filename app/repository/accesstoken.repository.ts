@@ -10,7 +10,11 @@ export class accessTokenRepository {
     });
   }
 
-  static async findByUserIDAndToken(userID: number, token: string, currentTime: Date) {
+  static async findByUserIDAndToken(
+    userID: number,
+    token: string,
+    currentTime: Date
+  ) {
     return db
       .select()
       .from(accessTokensTable)
@@ -22,5 +26,16 @@ export class accessTokenRepository {
         )
       )
       .limit(1);
+  }
+
+  static async deleteByUserIDAndToken(userID: number, token: string) {
+    return await db
+      .delete(accessTokensTable)
+      .where(
+        and(
+          eq(accessTokensTable.userID, userID),
+          eq(accessTokensTable.token, token)
+        )
+      );
   }
 }

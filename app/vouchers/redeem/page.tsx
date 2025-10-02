@@ -75,7 +75,7 @@ export default function RedeemPage() {
 
   return (
     <ProtectedRoute>
-      <div className="min-h-screen bg-gray-900 text-gray-100 flex items-center justify-center p-6">
+      <div className="flex-1 flex items-center justify-center bg-gray-900 text-gray-100 p-6">
         <div className="w-full max-w-md bg-gray-800 rounded-2xl shadow-lg p-8">
           <h1 className="text-2xl font-bold text-center mb-6 text-blue-400">
             Redeem Voucher

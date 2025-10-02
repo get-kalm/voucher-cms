@@ -10,7 +10,11 @@ export class authService {
 
       const user = await userRepository.create(email, hashedPassword, "user");
 
-      const token = await signJwt({ id: user.id, email: user.email, role: user.role });
+      const token = await signJwt({
+        id: user.id,
+        email: user.email,
+        role: user.role,
+      });
       const currentTime = new Date();
       const expiredAt = new Date(
         currentTime.setMonth(currentTime.getDate() + 7)
@@ -24,23 +28,39 @@ export class authService {
   }
 
   static async login(email: string, password: string) {
-    const user = await this.findByEmail(email);
-    if (!user) {
-      throw new Error("invalid credentials");
-      return;
-    }
+    try {
+      const user = await this.findByEmail(email);
+      if (!user) {
+        throw new Error("invalid credentials");
+        return;
+      }
 
-    const match = await bcrypt.compare(password, user.password);
-    if (!match) {
-      throw new Error("invalid credentials");
-      return;
-    }
+      const match = await bcrypt.compare(password, user.password);
+      if (!match) {
+        throw new Error("invalid credentials");
+        return;
+      }
 
-    const token = await signJwt({ id: user.id, email: user.email, role: user.role });
-    const currentTime = new Date();
-    const expiredAt = new Date(currentTime.setMonth(currentTime.getDate() + 7));
-    await accessTokenRepository.create(user.id, token, expiredAt);
-    return token;
+      const token = await signJwt({
+        id: user.id,
+        email: user.email,
+        role: user.role,
+      });
+      const currentTime = new Date();
+      const expiredAt = new Date(
+        currentTime.setMonth(currentTime.getDate() + 7)
+      );
+      await accessTokenRepository.create(user.id, token, expiredAt);
+      return token;
+    } catch (error: any) {
+      console.log("error:", error);
+      throw new Error(error);
+    }
+  }
+
+  static async logout(userIDStr: string, token: string) {
+    const userID = +userIDStr
+    await accessTokenRepository.deleteByUserIDAndToken(userID, token);
   }
 
   static async findByUserIDAndToken(userID: number, token: string) {
