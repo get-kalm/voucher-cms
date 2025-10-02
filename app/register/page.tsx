@@ -32,6 +32,7 @@ export default function RegisterPage() {
       router.push("/");
       router.refresh(); 
     } else {
+        // TODO: use notification provider
       alert(data.message || "Registration failed");
     }
   }
