@@ -30,7 +30,10 @@ export class accessTokenRepository {
 
   static async deleteByUserIDAndToken(userID: number, token: string) {
     return await db
-      .delete(accessTokensTable)
+      .update(accessTokensTable)
+      .set({
+        deletedAt: new Date(), // or new Date() if you want JS timestamp
+      })
       .where(
         and(
           eq(accessTokensTable.userID, userID),
