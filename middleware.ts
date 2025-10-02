@@ -38,7 +38,6 @@ export async function middleware(req: NextRequest) {
   requestHeaders.set("x-user-role", payload.role);
 
   // Check role
-  console.log("req.nextUrl:", req.nextUrl)
   if (req.nextUrl.pathname.startsWith("/api/admin")) {
     if (!payload.role) {
       return NextResponse.json(
