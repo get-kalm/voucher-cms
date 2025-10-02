@@ -31,11 +31,15 @@ export class voucherRepository {
   }
 
   static async findByCode(code: string) {
-    return db
-      .select()
-      .from(vouchersTable)
-      .where(eq(vouchersTable.code, code))
-      .limit(1);
+    try {
+      return db
+        .select()
+        .from(vouchersTable)
+        .where(eq(vouchersTable.code, code))
+        .limit(1);
+    } catch (error: any) {
+      throw new Error(error);
+    }
   }
 
   static async findActiveAndUnredeemedCode(code: string, currentTime: Date) {

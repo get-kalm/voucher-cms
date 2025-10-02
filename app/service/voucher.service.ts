@@ -6,9 +6,13 @@ export class voucherService {
   }
 
   static async findByCode(code: string) {
-    const voucher = await this.validateVoucher(code);
+    try {
+      const voucher = await this.validateVoucher(code);
 
-    return voucher;
+      return voucher;
+    } catch (error) {
+      return null;
+    }
   }
 
   static async create(name: string, isActive: boolean, expiryDate: Date) {
@@ -19,7 +23,7 @@ export class voucherService {
       currentTime.setMonth(currentTime.getMonth() + 1)
     );
     if (expiryDate < minimumExpiryDate) {
-        throw new Error("expiry date must be at least 1 month from now");
+      throw new Error("expiry date must be at least 1 month from now");
     }
 
     return voucherRepository.create(name, code, isActive, false, expiryDate);
