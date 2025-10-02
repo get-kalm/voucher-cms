@@ -37,7 +37,7 @@ export class voucherRepository {
         .from(vouchersTable)
         .where(eq(vouchersTable.code, code))
         .limit(1);
-    } catch (error) {
+    } catch (error: any) {
       throw new Error(error);
     }
   }
