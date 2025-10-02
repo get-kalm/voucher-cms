@@ -4,11 +4,14 @@ import { eq } from "drizzle-orm";
 export class userRepository {
   static async create(email: string, password: string, role: string) {
     try {
-      const [user] = await db.insert(usersTable).values({
-        email,
-        password,
-        role,
-      }).returning();
+      const [user] = await db
+        .insert(usersTable)
+        .values({
+          email,
+          password,
+          role,
+        })
+        .returning();
 
       return user;
     } catch (error: any) {
@@ -21,10 +24,14 @@ export class userRepository {
   }
 
   static async findByEmail(email: string) {
-    return db
-      .select()
-      .from(usersTable)
-      .where(eq(usersTable.email, email))
-      .limit(1);
+    try {
+      const user = db
+        .select()
+        .from(usersTable)
+        .where(eq(usersTable.email, email))
+        .limit(1);
+      return user;
+    } catch (error: any) {
+    }
   }
 }

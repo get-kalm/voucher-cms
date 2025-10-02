@@ -36,6 +36,7 @@ export async function middleware(req: NextRequest) {
   requestHeaders.set("x-user-id", payload.id);
   requestHeaders.set("x-user-email", payload.email);
   requestHeaders.set("x-user-role", payload.role);
+  requestHeaders.set("x-user-token", token);
 
   // Check role
   if (req.nextUrl.pathname.startsWith("/api/admin")) {
