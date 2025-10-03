@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useNotification } from "@/components/NotificationProvider";
@@ -24,6 +25,7 @@ export default function VoucherPage() {
   const [error, setError] = useState<string | null>(null);
 
   const notify = useNotification();
+  const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -104,7 +106,8 @@ export default function VoucherPage() {
             {vouchers.map((v) => (
               <tr
                 key={v.id}
-                className="odd:bg-gray-800 even:bg-gray-900 hover:bg-gray-700 transition-colors"
+                onClick={() => router.push(`/admin/vouchers/${v.code}/update`)}
+                className="odd:bg-gray-800 even:bg-gray-900 hover:bg-gray-700 transition-colors cursor-pointer"
               >
                 <td className="px-4 py-3 text-gray-100">{v.name}</td>
                 <td className="px-4 py-3 text-gray-100">{v.code}</td>

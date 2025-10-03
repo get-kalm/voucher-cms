@@ -16,8 +16,12 @@ export default function UpdateVoucherPage({
 
   const router = useRouter();
   const notify = useNotification();
-  const [voucher, setVoucher] = useState<any>(null);
-  const [loading, setLoading] = useState(false);
+  const [voucher, setVoucher] = useState<any>({
+    name: "",
+    isActive: false,
+    expiryDate: "",
+  });
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setLoading(true);
@@ -32,10 +36,13 @@ export default function UpdateVoucherPage({
         }
 
         const json = await res.json();
+
         if (!json.success) {
           notify(json.message, false, 5000);
           setLoading(false);
         }
+
+        setVoucher(json.data);
       } catch (error) {
         console.log(error);
       } finally {
@@ -74,6 +81,9 @@ export default function UpdateVoucherPage({
     <ProtectedRoute>
       <div className="flex-1 flex items-center justify-center bg-gray-900 text-gray-100 p-6">
         <div className="w-full max-w-md bg-gray-800 rounded-2xl shadow-lg p-8">
+          <h1 className="text-2xl font-bold text-center mb-6 text-blue-400">
+            Update Voucher
+          </h1>
           <VoucherForm
             mode="update"
             initialValues={{
