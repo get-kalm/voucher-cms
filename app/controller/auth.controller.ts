@@ -62,6 +62,12 @@ export const authController = {
   async me(req: NextRequest) {
     try {
       const email = req.headers.get("x-user-email");
+      if (!email) {
+        return NextResponse.json(
+            { success: false, message: "unauthorized" },
+            { status: 401 }
+          );
+      }
       const user = await userService.findByEmail(email)
       if (!user) {
           return NextResponse.json(
@@ -73,7 +79,7 @@ export const authController = {
       { success: true, email: user.email, role: user.role },
       { status: 200 }
     );
-    } catch (error) {
+    } catch (error: any) {
       return NextResponse.json(
         { success: false, message: error.message },
         { status: 500 }

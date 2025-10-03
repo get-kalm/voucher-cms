@@ -24,7 +24,7 @@ export default function LoginPage() {
 
     if (res.ok && data.token) {
       setToken(data.token);
-      router.push("/");
+      router.push("/?fromLogin=1");
       router.refresh();
     } else {
       alert(data.message || "Login failed");
