@@ -61,7 +61,8 @@ export class voucherRepository {
     name: string,
     code: string,
     isActive: boolean,
-    isRedeemed: boolean
+    isRedeemed: boolean,
+    expiryDate: Date
   ) {
     try {
       const voucher = await db
@@ -70,6 +71,7 @@ export class voucherRepository {
           name,
           isActive,
           isRedeemed,
+          expiryDate,
           updatedAt: new Date(),
         })
         .where(eq(vouchersTable.code, code));

@@ -5,7 +5,7 @@ export class voucherService {
     return await voucherRepository.findAll();
   }
 
-  static async findByCode(code: string) {
+  static async findByCodeForRedeem(code: string) {
     try {
       const voucher = await this.validateVoucher(code);
 
@@ -41,19 +41,33 @@ export class voucherService {
       voucher.name,
       voucher.code,
       voucher.isActive,
-      true
+      true,
+      voucher.expiryDate
+    );
+  }
+
+  static async update(name: string, code: string, isActive: boolean, expiryDate: Date) {
+    const voucher = await this.findByCode(code);
+
+    if (!voucher) {
+      return null;
+    }
+
+    return voucherRepository.update(
+      name,
+      voucher.code,
+      isActive,
+      voucher.isRedeemed,
+      expiryDate,
     );
   }
 
   private static async validateVoucher(code: string) {
     const currentTime = new Date();
-    const vouchers = await voucherRepository.findByCode(code);
-
-    if (!vouchers || vouchers.length === 0) {
-      return null;
+    const voucher = await this.findByCode(code)
+    if (!voucher) {
+        return null;
     }
-
-    const voucher = vouchers[0];
 
     if (!voucher.isActive) {
       throw new Error(`Voucher not active`);
@@ -66,6 +80,16 @@ export class voucherService {
     }
 
     return voucher;
+  }
+
+  private static async findByCode(code: string) {
+    const vouchers = await voucherRepository.findByCode(code);
+
+    if (!vouchers || vouchers.length === 0) {
+      return null;
+    }
+
+    return vouchers[0];
   }
 
   private static async validateUniqueCode(): Promise<string> {

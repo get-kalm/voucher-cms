@@ -53,13 +53,12 @@ export class authService {
       await accessTokenRepository.create(user.id, token, expiredAt);
       return token;
     } catch (error: any) {
-      console.log("error:", error);
       throw new Error(error);
     }
   }
 
   static async logout(userIDStr: string, token: string) {
-    const userID = +userIDStr
+    const userID = +userIDStr;
     await accessTokenRepository.deleteByUserIDAndToken(userID, token);
   }
 
