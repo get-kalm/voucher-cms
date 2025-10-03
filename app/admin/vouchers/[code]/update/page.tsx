@@ -85,7 +85,6 @@ export default function UpdateVoucherPage({
             Update Voucher
           </h1>
           <VoucherForm
-            mode="update"
             initialValues={{
               name: voucher.name,
               isActive: voucher.isActive,

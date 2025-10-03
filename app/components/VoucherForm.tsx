@@ -16,7 +16,6 @@ type VoucherFormProps = {
 };
 
 export default function VoucherForm({
-  mode,
   initialValues,
   onSubmit,
 }: VoucherFormProps) {

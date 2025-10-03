@@ -14,7 +14,7 @@ export default function NewVoucherPage() {
   const notify = useNotification();
   const token = getBearerToken();
 
-  const handleSubmit = async (values) => {
+  const handleSubmit = async (values: any) => {
     const { name, isActive, expiryDate } = values;
     const expiryDateISO = new Date(expiryDate);
     const res = await apiFetch(API.vouchers.create, {
