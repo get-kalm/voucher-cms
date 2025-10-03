@@ -5,7 +5,6 @@ import { usePathname, useRouter } from "next/navigation";
 import { getToken } from "@/lib/token";
 import { API, apiFetch } from "@/lib/api";
 import { removeToken } from "@/lib/token";
-import { useSearchParams } from "next/navigation";
 
 export default function ProtectedRoute({
   children,
@@ -20,8 +19,9 @@ export default function ProtectedRoute({
   useEffect(() => {
     const checkToken = async () => {
       const token = getToken();
-      const searchParams = useSearchParams();
-      const fromLogin = searchParams.get("fromLogin") === "1";
+      const fromLogin =
+        typeof window !== "undefined" &&
+        new URLSearchParams(window.location.search).get("fromLogin") === "1";
 
       // missing token will open login page
       if (!token) {
@@ -61,7 +61,7 @@ export default function ProtectedRoute({
       if (isAdminPath && isAdmin) {
         setIsAuthorized(true);
         setIsChecking(false);
-        router.replace("/admin");
+        router.replace(pathName);
         return;
       }
 
