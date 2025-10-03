@@ -86,6 +86,9 @@ export default function VoucherPage() {
               <th className="px-4 py-3 text-left text-white font-semibold">
                 Name
               </th>
+              <th className="px-4 py-3 text-left text-white font-semibold">
+                Code
+              </th>
               <th className="px-4 py-3 text-center text-white font-semibold">
                 Active
               </th>
@@ -104,6 +107,7 @@ export default function VoucherPage() {
                 className="odd:bg-gray-800 even:bg-gray-900 hover:bg-gray-700 transition-colors"
               >
                 <td className="px-4 py-3 text-gray-100">{v.name}</td>
+                <td className="px-4 py-3 text-gray-100">{v.code}</td>
                 <td className="px-4 py-3 text-center">
                   {v.isActive ? "✅" : "❌"}
                 </td>

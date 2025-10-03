@@ -28,7 +28,6 @@ export default function ProtectedRoute({
         router.replace("/login");
         setIsAuthorized(true);
         setIsChecking(false);
-        console.log(29);
         return;
       }
 
