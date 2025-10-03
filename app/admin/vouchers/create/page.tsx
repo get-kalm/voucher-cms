@@ -32,7 +32,7 @@ export default function NewVoucherPage() {
     const json = await res.json();
     if (json.success) {
       notify("Voucher created 🎉", true, 5000);
-      router.push("/");
+      router.push("/admin");
       router.refresh();
     } else {
       notify(json.message, false, 5000);
