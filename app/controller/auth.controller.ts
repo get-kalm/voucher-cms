@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { authService } from "@/service/auth.service";
+import { userService } from '@/service/user.service';
 
 export const authController = {
   async register(req: NextRequest) {
@@ -48,11 +49,33 @@ export const authController = {
       const token = await authService.login(email, password);
       return NextResponse.json(
         { success: true, token: token },
-        { status: 201 }
+        { status: 200 }
       );
     } catch (err: any) {
       return NextResponse.json(
         { success: false, message: err.message },
+        { status: 500 }
+      );
+    }
+  },
+
+  async me(req: NextRequest) {
+    try {
+      const email = req.headers.get("x-user-email");
+      const user = await userService.findByEmail(email)
+      if (!user) {
+          return NextResponse.json(
+            { success: false, message: "unauthorized" },
+            { status: 401 }
+          );
+    }
+    return NextResponse.json(
+      { success: true, email: user.email, role: user.role },
+      { status: 200 }
+    );
+    } catch (error) {
+      return NextResponse.json(
+        { success: false, message: error.message },
         { status: 500 }
       );
     }
