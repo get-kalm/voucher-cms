@@ -9,7 +9,8 @@ export const API = {
   auth: {
     login: `${EXTERNAL_URL}/login`,
     register: `${EXTERNAL_URL}/register`,
-    logout: `${INTERNAL_URL}/logout`
+    me: `${INTERNAL_URL}/me`,
+    logout: `${INTERNAL_URL}/logout`,
   },
   vouchers: {
     create: `${ADMIN_URL}/vouchers`,
@@ -28,11 +29,11 @@ export async function apiFetch(url: string, options: RequestInit = {}) {
       Authorization: getBearerToken() || "",
     },
   });
-
-  if (res.status === 401 || res.status === 403) {
+  
+  if ((res.status === 401 || res.status === 403) && url !== API.auth.me) {
     removeToken();
     window.location.href = "/login";
-    return Promise.reject(new Error("Unauthorized"));
+    return res;
   }
 
   return res;
