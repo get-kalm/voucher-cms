@@ -86,10 +86,11 @@ export default function UpdateVoucherPage({
           </h1>
           <VoucherForm
             initialValues={{
-              name: voucher.name,
-              isActive: voucher.isActive,
-              expiryDate: voucher.expiryDate.split("T")[0],
+                name: voucher.name,
+                isActive: voucher.isActive,
+                expiryDate: voucher.expiryDate.split("T")[0],
             }}
+            loading={loading}
             onSubmit={handleSubmit}
           />
         </div>
