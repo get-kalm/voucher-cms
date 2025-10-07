@@ -27,7 +27,7 @@ export default function UpdateVoucherPage({
     setLoading(true);
     (async () => {
       try {
-        const res = await apiFetch(API.vouchers.findByCode(code), {
+        const res = await apiFetch(API.vouchers.findByCodeAdmin(code), {
           method: "GET",
         });
 

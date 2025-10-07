@@ -7,5 +7,5 @@ export async function GET(
 ) {
   const { code } = await context.params;
 
-  return voucherController.findByCodeForRedeem(req, code);
+  return voucherController.findByCode(req, code);
 }
