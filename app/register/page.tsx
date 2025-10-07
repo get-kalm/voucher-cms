@@ -11,14 +11,14 @@ export default function RegisterPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState("")
+  const [error, setError] = useState("");
 
   async function handleRegister(e: React.FormEvent) {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-        setError("password not match");
-        return;
+      setError("password not match");
+      return;
     }
     const res = await apiFetch(API.auth.register, {
       method: "POST",
@@ -27,13 +27,15 @@ export default function RegisterPage() {
 
     const data = await res.json();
 
-    console.log(data)
+    console.log(data);
     if (res.ok && data.token) {
+      setError("");
+
       setToken(data.token);
       router.push("/");
-      router.refresh(); 
+      router.refresh();
     } else {
-        setError(data.message)
+      setError(data.message);
     }
   }
 

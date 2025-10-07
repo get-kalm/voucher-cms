@@ -11,6 +11,7 @@ export default function LoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
@@ -27,7 +28,7 @@ export default function LoginPage() {
       router.push("/?fromLogin=1");
       router.refresh();
     } else {
-      alert(data.message || "Login failed");
+      setError(data.message);
     }
   }
 
@@ -60,6 +61,8 @@ export default function LoginPage() {
                 required
               />
             </div>
+
+            {error && <p className="text-red-500 text-sm">{error}</p>}
 
             <div>
               <button
