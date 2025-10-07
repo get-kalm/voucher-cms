@@ -27,13 +27,13 @@ export default function RegisterPage() {
 
     const data = await res.json();
 
+    console.log(data)
     if (res.ok && data.token) {
       setToken(data.token);
       router.push("/");
       router.refresh(); 
     } else {
-        // TODO: use notification provider
-      alert(data.message || "Registration failed");
+        setError(data.message)
     }
   }
 
