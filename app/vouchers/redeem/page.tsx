@@ -72,7 +72,7 @@ export default function RedeemPage() {
       if (!json.success) {
         notify(json.message, false, 5000);
       } else {
-        notify("Redeem successful 🎉", true, 5000);
+        notify("Free session granted 🎉", true, 5000);
         setVoucher(null);
       }
     } catch (error) {
