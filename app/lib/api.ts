@@ -15,8 +15,10 @@ export const API = {
   vouchers: {
     create: `${ADMIN_URL}/vouchers`,
     list: `${ADMIN_URL}/vouchers`,
-    findByCode: (code: string) => `${INTERNAL_URL}/vouchers/${code}`,
+    findByCodeUser: (code: string) => `${INTERNAL_URL}/vouchers/${code}`,
+    findByCodeAdmin: (code: string) => `${ADMIN_URL}/vouchers/${code}`,
     redeem: `${INTERNAL_URL}/vouchers/redeem`,
+    update: `${ADMIN_URL}/vouchers`,
   },
 };
 

@@ -5,6 +5,8 @@ import { useNotification } from "@/components/NotificationProvider";
 import { API, apiFetch } from "@/lib/api";
 import { getBearerToken } from "@/lib/token";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import LoadingSpinner from "@/components/LoadingSpinner";
+import LoadingButton from "@/components/LoadingButton";
 
 // TODO: create global model or get from schema
 type Voucher = {
@@ -22,7 +24,8 @@ type Voucher = {
 export default function RedeemPage() {
   const [code, setCode] = useState("");
   const [voucher, setVoucher] = useState<Voucher | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [loadingSearch, setLoadingSearch] = useState(false);
+  const [loadingRedeem, setLoadingRedeem] = useState(false);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   const notify = useNotification();
@@ -30,13 +33,17 @@ export default function RedeemPage() {
 
   const fetchVoucher = async () => {
     try {
-      setLoading(true);
+      if (!code) {
+        notify("please enter a valid code", false, 5000);
+        return;
+      }
+      setLoadingSearch(true);
       setVoucher(null);
-      const res = await apiFetch(API.vouchers.findByCode(code), {
+      const res = await apiFetch(API.vouchers.findByCodeUser(code), {
         method: "GET",
       });
 
-      setLoading(false);
+      setLoadingSearch(false);
 
       const json = await res.json();
       if (!json.success) {
@@ -45,14 +52,14 @@ export default function RedeemPage() {
 
       setVoucher(json.data);
     } catch (error) {
-      setLoading(false);
+      setLoadingSearch(false);
       console.log("Error fetching voucher:", error);
     }
   };
 
   const redeemVoucher = async () => {
     try {
-      setLoading(true);
+      setLoadingRedeem(true);
       const res = await apiFetch(API.vouchers.redeem, {
         method: "POST",
         body: JSON.stringify({
@@ -60,15 +67,16 @@ export default function RedeemPage() {
         }),
       });
 
-      setLoading(false);
+      setLoadingRedeem(false);
       const json = await res.json();
       if (!json.success) {
         notify(json.message, false, 5000);
       } else {
         notify("Redeem successful 🎉", true, 5000);
+        setVoucher(null);
       }
     } catch (error) {
-      setLoading(false);
+      setLoadingRedeem(false);
       console.log("Error redeeming voucher:", error);
     }
   };
@@ -82,35 +90,36 @@ export default function RedeemPage() {
           </h1>
 
           {/* Search Input */}
-          <div className="flex gap-3 mb-6">
+          <div className="flex flex-col sm:flex-row gap-3 mb-6">
             <input
               type="text"
               placeholder="Enter voucher code"
               value={code}
               onChange={(e) => setCode(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") fetchVoucher();
+              }}
               className="flex-1 border border-gray-700 bg-gray-900 text-gray-100 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            <button
+            <LoadingButton
               onClick={fetchVoucher}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors"
+              loading={loadingSearch}
+              type="submit"
             >
               Search
-            </button>
+            </LoadingButton>
           </div>
-
-          {/* Loading / Error / Success */}
-          {loading && <p className="text-gray-400">Loading...</p>}
 
           {/* Voucher Preview */}
           {voucher && (
             <div className="mt-6 rounded-2xl shadow-lg p-6 border border-blue-800/40 bg-blue-900/30">
               {/* Header */}
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="font-bold text-xl text-blue-400">
+              <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
+                <h2 className="font-bold text-xl text-blue-400 break-words flex-1 min-w-0">
                   {voucher?.name}
                 </h2>
                 <span
-                  className={`px-3 py-1 text-sm font-medium rounded-full ${
+                  className={`px-3 py-1 text-sm font-medium rounded-full whitespace-nowrap ${
                     voucher?.isActive
                       ? "bg-green-600/20 text-green-400 border border-green-600/40"
                       : "bg-red-600/20 text-red-400 border border-red-600/40"
@@ -121,26 +130,24 @@ export default function RedeemPage() {
               </div>
 
               {/* Body */}
-              <div className="space-y-3 text-gray-300">
-                <p>
-                  <span className="font-medium text-gray-400">
-                    Expires on{" "}
-                    {new Date(voucher?.expiryDate).toLocaleDateString("en-GB", {
-                      day: "2-digit",
-                      month: "long",
-                      year: "numeric",
-                    })}
-                  </span>{" "}
+              <div className="space-y-3 text-gray-300 mb-3">
+                <p className="font-medium text-gray-400">
+                  Expires on{" "}
+                  {new Date(voucher?.expiryDate).toLocaleDateString("en-GB", {
+                    day: "2-digit",
+                    month: "long",
+                    year: "numeric",
+                  })}
                 </p>
               </div>
 
               {/* Footer */}
-              <button
+              <LoadingButton
                 onClick={redeemVoucher}
-                className="mt-6 w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 rounded-lg transition-colors"
+                loading={loadingRedeem}
               >
                 Redeem
-              </button>
+              </LoadingButton>
             </div>
           )}
         </div>

@@ -3,12 +3,14 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { API, apiFetch } from "@/lib/api";
-import { removeToken } from '../lib/token';
+import { removeToken } from "../lib/token";
+import { useNotification } from "@/components/NotificationProvider";
 
 export default function LogoutButton() {
   const router = useRouter();
 
   const [isOpen, setIsOpen] = useState(false);
+  const notify = useNotification();
 
   const handleLogout = async () => {
     const res = await apiFetch(API.auth.logout, {
@@ -17,11 +19,11 @@ export default function LogoutButton() {
 
     const data = await res.json();
 
-    if (res.ok) {
-        router.replace("/login");
+    if (res.ok && data.success) {
+      router.replace("/login");
     } else {
-        // TODO: use notification provider
-      alert(data.message || "logout failed");
+      notify(data.message, false, 5000);
+      return;
     }
 
     removeToken();

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { authService } from "@/service/auth.service";
-import { userService } from '@/service/user.service';
+import { userService } from "@/service/user.service";
 
 export const authController = {
   async register(req: NextRequest) {
@@ -64,21 +64,21 @@ export const authController = {
       const email = req.headers.get("x-user-email");
       if (!email) {
         return NextResponse.json(
-            { success: false, message: "unauthorized" },
-            { status: 401 }
-          );
+          { success: false, message: "unauthorized" },
+          { status: 401 }
+        );
       }
-      const user = await userService.findByEmail(email)
+      const user = await userService.findByEmail(email);
       if (!user) {
-          return NextResponse.json(
-            { success: false, message: "unauthorized" },
-            { status: 401 }
-          );
-    }
-    return NextResponse.json(
-      { success: true, email: user.email, role: user.role },
-      { status: 200 }
-    );
+        return NextResponse.json(
+          { success: false, message: "unauthorized" },
+          { status: 401 }
+        );
+      }
+      return NextResponse.json(
+        { success: true, email: user.email, role: user.role },
+        { status: 200 }
+      );
     } catch (error: any) {
       return NextResponse.json(
         { success: false, message: error.message },

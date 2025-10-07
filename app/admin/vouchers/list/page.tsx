@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useNotification } from "@/components/NotificationProvider";
@@ -24,6 +25,7 @@ export default function VoucherPage() {
   const [error, setError] = useState<string | null>(null);
 
   const notify = useNotification();
+  const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -80,7 +82,8 @@ export default function VoucherPage() {
           </Link>
         </div>
 
-        <table className="w-full border-collapse rounded-lg overflow-hidden">
+        {/* Web version */}
+        <table className="hidden sm:table w-full border-collapse rounded-lg overflow-hidden">
           <thead className="bg-blue-600">
             <tr>
               <th className="px-4 py-3 text-left text-white font-semibold">
@@ -104,7 +107,8 @@ export default function VoucherPage() {
             {vouchers.map((v) => (
               <tr
                 key={v.id}
-                className="odd:bg-gray-800 even:bg-gray-900 hover:bg-gray-700 transition-colors"
+                onClick={() => router.push(`/admin/vouchers/${v.code}/update`)}
+                className="odd:bg-gray-800 even:bg-gray-900 hover:bg-gray-700 transition-colors cursor-pointer"
               >
                 <td className="px-4 py-3 text-gray-100">{v.name}</td>
                 <td className="px-4 py-3 text-gray-100">{v.code}</td>
@@ -125,6 +129,62 @@ export default function VoucherPage() {
             ))}
           </tbody>
         </table>
+
+        {/* Mobile version */}
+        <div className="sm:hidden flex flex-col gap-3">
+          {vouchers.map((v) => (
+            <div
+              key={v.id}
+              onClick={() => router.push(`/admin/vouchers/${v.code}/update`)}
+              className="bg-gray-800 p-4 rounded-xl hover:bg-gray-700 transition cursor-pointer shadow-md"
+            >
+              {/* Voucher Name */}
+              <div
+                className="font-semibold text-white text-lg mb-1 break-words overflow-hidden text-ellipsis"
+                style={{ wordBreak: "break-word" }}
+              >
+                {v.name}
+              </div>
+
+              {/* Voucher Code */}
+              <div className="text-gray-400 text-sm mb-3 break-all">
+                Code: {v.code}
+              </div>
+
+              {/* Status Badges */}
+              <div className="flex flex-wrap gap-2 mb-3">
+                <div
+                  className={`px-3 py-1 rounded-full text-xs font-medium ${
+                    v.isActive
+                      ? "bg-green-600 text-white"
+                      : "bg-red-600 text-white"
+                  }`}
+                >
+                  {v.isActive ? "Active" : "Inactive"}
+                </div>
+                <div
+                  className={`px-3 py-1 rounded-full text-xs font-medium ${
+                    v.isRedeemed
+                      ? "bg-purple-600 text-white"
+                      : "bg-yellow-500 text-gray-900"
+                  }`}
+                >
+                  {v.isRedeemed ? "Redeemed" : "Redeemable"}
+                </div>
+              </div>
+
+              {/* Expiry Date */}
+              <div className="text-gray-300 text-sm">
+                Expiry:{" "}
+                {new Date(v.expiryDate).toLocaleDateString("en-GB", {
+                  day: "2-digit",
+                  month: "long",
+                  year: "numeric",
+                })}
+              </div>
+            </div>
+          ))}
+        </div>
       </main>
     </ProtectedRoute>
   );

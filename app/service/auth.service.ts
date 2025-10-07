@@ -6,6 +6,10 @@ import bcrypt from "bcrypt";
 export class authService {
   static async register(email: string, password: string) {
     try {
+      const existingUser = await this.findByEmail(email);
+      if (existingUser) {
+        throw new Error("an account with this email already exists");
+      }
       const hashedPassword = await bcrypt.hash(password, 10);
 
       const user = await userRepository.create(email, hashedPassword, "user");
@@ -31,13 +35,13 @@ export class authService {
     try {
       const user = await this.findByEmail(email);
       if (!user) {
-        throw new Error("invalid credentials");
+        throw new Error("email or password mismatch");
         return;
       }
 
       const match = await bcrypt.compare(password, user.password);
       if (!match) {
-        throw new Error("invalid credentials");
+        throw new Error("email or password mismatch");
         return;
       }
 
@@ -53,13 +57,12 @@ export class authService {
       await accessTokenRepository.create(user.id, token, expiredAt);
       return token;
     } catch (error: any) {
-      console.log("error:", error);
-      throw new Error(error);
+      throw error;
     }
   }
 
   static async logout(userIDStr: string, token: string) {
-    const userID = +userIDStr
+    const userID = +userIDStr;
     await accessTokenRepository.deleteByUserIDAndToken(userID, token);
   }
 

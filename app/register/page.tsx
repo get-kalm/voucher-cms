@@ -5,20 +5,23 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { API, apiFetch } from "@/lib/api";
 import { setToken } from "@/lib/token";
+import LoadingButton from "@/components/LoadingButton";
 
 export default function RegisterPage() {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState("")
+  const [error, setError] = useState("");
 
   async function handleRegister(e: React.FormEvent) {
+    setLoading(true);
     e.preventDefault();
 
     if (password !== confirmPassword) {
-        setError("password not match");
-        return;
+      setError("password not match");
+      return;
     }
     const res = await apiFetch(API.auth.register, {
       method: "POST",
@@ -28,13 +31,19 @@ export default function RegisterPage() {
     const data = await res.json();
 
     if (res.ok && data.token) {
+      setError("");
       setToken(data.token);
       router.push("/");
-      router.refresh(); 
+      router.refresh();
+      setLoading(false);
+      return;
     } else {
-        // TODO: use notification provider
-      alert(data.message || "Registration failed");
+      setError(data.message);
+      setLoading(false);
+      return;
     }
+
+    setLoading(false);
   }
 
   return (
@@ -80,12 +89,9 @@ export default function RegisterPage() {
           {error && <p className="text-red-500 text-sm">{error}</p>}
 
           <div>
-            <button
-              type="submit"
-              className="w-full mt-5 bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 rounded-lg transition-colors"
-            >
+            <LoadingButton loading={loading} type="submit">
               Register
-            </button>
+            </LoadingButton>
           </div>
         </form>
 
