@@ -1,6 +1,11 @@
 # Project Setup Guide
 
-## Steps to Run the Project
+Access production server in [https://voucher-cms.vercel.app/](https://voucher-cms.vercel.app/) <br>
+Use this credential for login:
+   - **Email:** `admin@example.com`
+   - **Password:** `adminpassword`
+
+## Steps to Run the Project on your Local Device
 
 1. Run the following command to install dependencies:
    ```bash
@@ -51,3 +56,5 @@
     [http://localhost:3000](http://localhost:3000)
 
     You can search for a voucher code and redeem it from there.
+
+11. You can import postman collection and env variables in /docs

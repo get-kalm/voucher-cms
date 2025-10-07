@@ -1,0 +1,1603 @@
+{
+	"info": {
+		"_postman_id": "73915072-110e-43e1-86c4-58f683a51ac9",
+		"name": "Get Kalm",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17289212"
+	},
+	"item": [
+		{
+			"name": "External",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"rayendratimotius@gmail.com\",\n    \"password\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{next_url}}/api/external/register",
+							"host": [
+								"{{next_url}}"
+							],
+							"path": [
+								"api",
+								"external",
+								"register"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "201",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"rayendratimotius@gmail.com\",\n    \"password\": \"password\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{next_url}}/api/register",
+									"host": [
+										"{{next_url}}"
+									],
+									"path": [
+										"api",
+										"register"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 30 Sep 2025 06:53:44 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true\n}"
+						},
+						{
+							"name": "email is required",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"\",\n    \"password\": \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{next_url}}/api/register",
+									"host": [
+										"{{next_url}}"
+									],
+									"path": [
+										"api",
+										"register"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 30 Sep 2025 06:45:42 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"email is required\"\n}"
+						},
+						{
+							"name": "password is required",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"rayendratimotius@gmail.com\",\n    \"password\": \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{next_url}}/api/register",
+									"host": [
+										"{{next_url}}"
+									],
+									"path": [
+										"api",
+										"register"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 30 Sep 2025 06:46:05 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"password is required\"\n}"
+						},
+						{
+							"name": "email exists",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"rayendratimotius@gmail.com\",\n    \"password\": \"password\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{next_url}}/api/external/register",
+									"host": [
+										"{{next_url}}"
+									],
+									"path": [
+										"api",
+										"external",
+										"register"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 07 Oct 2025 04:28:30 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"An account with this email already exists\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var resBody = pm.response.text();",
+									"console.log(resBody)",
+									"",
+									"if (resBody !== \"\") {",
+									"    try {",
+									"        var res = JSON.parse(resBody);",
+									"        if (res.token) {",
+									"            pm.environment.set(\"token\", res.token);",
+									"        } else {",
+									"            console.log(\"token not found in response\");",
+									"        }",
+									"    } catch (e) {",
+									"        console.log(\"Failed to parse JSON:\", e);",
+									"    }",
+									"} else {",
+									"    console.log(\"Response body is empty\");",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@example.com\",\n    \"password\": \"adminpassword\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{next_url}}/api/external/login",
+							"host": [
+								"{{next_url}}"
+							],
+							"path": [
+								"api",
+								"external",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"rayendratimotius@gmail.com\",\n    \"password\": \"password\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/external/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"external",
+										"login"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 30 Sep 2025 07:55:53 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiZW1haWwiOiJyYXllbmRyYXRpbW90aXVzQGdtYWlsLmNvbSIsImlhdCI6MTc1OTIxODk1MywiZXhwIjoxNzU5ODIzNzUzfQ.vKXP3n-j5yckPLAXoytTdq9HVOXWcbIcRmp1vwxt9Is\"\n}"
+						},
+						{
+							"name": "email is required",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"\",\n    \"password\": \"password\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/external/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"external",
+										"login"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 30 Sep 2025 06:59:16 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"email is required\"\n}"
+						},
+						{
+							"name": "password is required",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"rayendratimotius@gmail.com\",\n    \"password\": \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/external/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"external",
+										"login"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 30 Sep 2025 06:59:34 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"password is required\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Fourth Voucher\",\n    \"isActive\": true,\n    \"expiryDate\": \"2026-09-26T08:04:40.300Z\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{next_url}}/api/admin/vouchers",
+							"host": [
+								"{{next_url}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"vouchers"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "201",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"First Voucher\",\n    \"isActive\": true,\n    \"expiryDate\": \"2025-09-26T08:04:40.300Z\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{next_url}}/api/admin/vouchers",
+									"host": [
+										"{{next_url}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"vouchers"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 26 Sep 2025 06:18:26 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true\n}"
+						},
+						{
+							"name": "voucher name already exist",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"First Voucher\",\n    \"isActive\": true,\n    \"expiryDate\": \"2025-09-26T08:04:40.300Z\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{next_url}}/api/admin/vouchers",
+									"host": [
+										"{{next_url}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"vouchers"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 26 Sep 2025 07:02:55 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Key (name)=(First Voucher) already exists.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Fourth Vouchers\",\n    \"code\": \"YPUXRGAR\",\n    \"isActive\": false,\n    \"expiryDate\": \"2026-09-26T08:04:40.300Z\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{next_url}}/api/admin/vouchers",
+							"host": [
+								"{{next_url}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"vouchers"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Fourth Vouchers\",\n    \"code\": \"YPUXRGAR\",\n    \"isActive\": false,\n    \"expiryDate\": \"2026-09-26T08:04:40.300Z\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{next_url}}/api/admin/vouchers",
+									"host": [
+										"{{next_url}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"vouchers"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 03 Oct 2025 12:22:23 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true\n}"
+						},
+						{
+							"name": "404",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Fourth Vouchers\",\n    \"code\": \"ASDFASDF\",\n    \"isActive\": true,\n    \"expiryDate\": \"2026-09-26T08:04:40.300Z\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{next_url}}/api/admin/vouchers",
+									"host": [
+										"{{next_url}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"vouchers"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 03 Oct 2025 12:21:13 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"voucher not found\"\n}"
+						}
+					]
+				},
+				{
+					"name": "List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{next_url}}/api/admin/vouchers",
+							"host": [
+								"{{next_url}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"vouchers"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{next_url}}/api/admin/vouchers",
+									"host": [
+										"{{next_url}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"vouchers"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 26 Sep 2025 06:05:11 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": [\n        {\n            \"id\": 1,\n            \"name\": \"First Voucher\",\n            \"code\": \"JCTXQFQA\",\n            \"isActive\": true,\n            \"isRedeemed\": false,\n            \"expiryDate\": \"2025-09-26T08:04:40.300Z\",\n            \"createdAt\": \"2025-09-26T05:37:50.421Z\",\n            \"updatedAt\": \"2025-09-26T05:37:50.421Z\",\n            \"deletedAt\": null\n        },\n        {\n            \"id\": 24,\n            \"name\": \"Second Voucher\",\n            \"code\": \"TCLERNEJ\",\n            \"isActive\": true,\n            \"isRedeemed\": false,\n            \"expiryDate\": \"2025-09-26T08:04:40.300Z\",\n            \"createdAt\": \"2025-09-26T05:56:55.055Z\",\n            \"updatedAt\": \"2025-09-26T05:56:55.055Z\",\n            \"deletedAt\": null\n        },\n        {\n            \"id\": 25,\n            \"name\": \"Third Voucher\",\n            \"code\": \"VNTEADEJ\",\n            \"isActive\": true,\n            \"isRedeemed\": false,\n            \"expiryDate\": \"2025-09-26T08:04:40.300Z\",\n            \"createdAt\": \"2025-09-26T05:58:41.460Z\",\n            \"updatedAt\": \"2025-09-26T05:58:41.460Z\",\n            \"deletedAt\": null\n        },\n        {\n            \"id\": 26,\n            \"name\": \"Fourth Voucher\",\n            \"code\": \"PYERVGVA\",\n            \"isActive\": true,\n            \"isRedeemed\": false,\n            \"expiryDate\": \"2025-09-26T08:04:40.300Z\",\n            \"createdAt\": \"2025-09-26T05:59:17.594Z\",\n            \"updatedAt\": \"2025-09-26T05:59:17.594Z\",\n            \"deletedAt\": null\n        },\n        {\n            \"id\": 27,\n            \"name\": \"Fifth Voucher\",\n            \"code\": \"ELZRZULU\",\n            \"isActive\": true,\n            \"isRedeemed\": false,\n            \"expiryDate\": \"2025-09-26T08:04:40.300Z\",\n            \"createdAt\": \"2025-09-26T05:59:31.626Z\",\n            \"updatedAt\": \"2025-09-26T05:59:31.626Z\",\n            \"deletedAt\": null\n        },\n        {\n            \"id\": 28,\n            \"name\": \"Sixth Voucher\",\n            \"code\": \"ULRLVCTZ\",\n            \"isActive\": true,\n            \"isRedeemed\": false,\n            \"expiryDate\": \"2025-09-26T08:04:40.300Z\",\n            \"createdAt\": \"2025-09-26T06:00:01.855Z\",\n            \"updatedAt\": \"2025-09-26T06:00:01.855Z\",\n            \"deletedAt\": null\n        },\n        {\n            \"id\": 29,\n            \"name\": \"Seventh Voucher\",\n            \"code\": \"HKNZVLXB\",\n            \"isActive\": true,\n            \"isRedeemed\": false,\n            \"expiryDate\": \"2025-09-26T08:04:40.300Z\",\n            \"createdAt\": \"2025-09-26T06:00:10.186Z\",\n            \"updatedAt\": \"2025-09-26T06:00:10.186Z\",\n            \"deletedAt\": null\n        },\n        {\n            \"id\": 30,\n            \"name\": \"Eight Voucher\",\n            \"code\": \"FBQTTFRM\",\n            \"isActive\": true,\n            \"isRedeemed\": false,\n            \"expiryDate\": \"2025-09-26T08:04:40.300Z\",\n            \"createdAt\": \"2025-09-26T06:02:06.874Z\",\n            \"updatedAt\": \"2025-09-26T06:02:06.874Z\",\n            \"deletedAt\": null\n        }\n    ]\n}"
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Internal",
+			"item": [
+				{
+					"name": "Voucher",
+					"item": [
+						{
+							"name": "Find By Code",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{next_url}}/api/internal/vouchers/:code",
+									"host": [
+										"{{next_url}}"
+									],
+									"path": [
+										"api",
+										"internal",
+										"vouchers",
+										":code"
+									],
+									"variable": [
+										{
+											"key": "code",
+											"value": "asdfadsf"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "200",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{next_url}}/api/internal/vouchers/:code",
+											"host": [
+												"{{next_url}}"
+											],
+											"path": [
+												"api",
+												"internal",
+												"vouchers",
+												":code"
+											],
+											"variable": [
+												{
+													"key": "code",
+													"value": "AWVXCTQW"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "content-type",
+											"value": "application/json"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 26 Sep 2025 07:16:31 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"success\": true,\n    \"data\": {\n        \"id\": 3,\n        \"name\": \"Second Voucher\",\n        \"code\": \"AWVXCTQW\",\n        \"isActive\": true,\n        \"isRedeemed\": false,\n        \"expiryDate\": \"2025-09-26T08:04:40.300Z\",\n        \"createdAt\": \"2025-09-26T07:03:16.357Z\",\n        \"updatedAt\": \"2025-09-26T07:03:16.357Z\",\n        \"deletedAt\": null\n    }\n}"
+								},
+								{
+									"name": "404",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{next_url}}/api/internal/vouchers/:code",
+											"host": [
+												"{{next_url}}"
+											],
+											"path": [
+												"api",
+												"internal",
+												"vouchers",
+												":code"
+											],
+											"variable": [
+												{
+													"key": "code",
+													"value": "CLGJXZSQ"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "content-type",
+											"value": "application/json"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 26 Sep 2025 08:38:29 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"success\": false,\n    \"message\": \"Voucher not found\"\n}"
+								},
+								{
+									"name": "voucher not active",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{next_url}}/api/internal/vouchers/:code",
+											"host": [
+												"{{next_url}}"
+											],
+											"path": [
+												"api",
+												"internal",
+												"vouchers",
+												":code"
+											],
+											"variable": [
+												{
+													"key": "code",
+													"value": "CLGJXZSW"
+												}
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "content-type",
+											"value": "application/json"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 26 Sep 2025 08:38:55 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"success\": false,\n    \"message\": \"Voucher not active\"\n}"
+								},
+								{
+									"name": "voucher redeemed",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{next_url}}/api/internal/vouchers/:code",
+											"host": [
+												"{{next_url}}"
+											],
+											"path": [
+												"api",
+												"internal",
+												"vouchers",
+												":code"
+											],
+											"variable": [
+												{
+													"key": "code",
+													"value": "CLGJXZSW"
+												}
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "content-type",
+											"value": "application/json"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 26 Sep 2025 08:39:37 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"success\": false,\n    \"message\": \"Voucher redeemed\"\n}"
+								},
+								{
+									"name": "voucher expired",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{next_url}}/api/internal/vouchers/:code",
+											"host": [
+												"{{next_url}}"
+											],
+											"path": [
+												"api",
+												"internal",
+												"vouchers",
+												":code"
+											],
+											"variable": [
+												{
+													"key": "code",
+													"value": "CLGJXZSW"
+												}
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "content-type",
+											"value": "application/json"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 26 Sep 2025 08:40:28 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"success\": false,\n    \"message\": \"voucher expired\"\n}"
+								},
+								{
+									"name": "missing authorization",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{next_url}}/api/internal/vouchers/:code",
+											"host": [
+												"{{next_url}}"
+											],
+											"path": [
+												"api",
+												"internal",
+												"vouchers",
+												":code"
+											],
+											"variable": [
+												{
+													"key": "code",
+													"value": ""
+												}
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "content-type",
+											"value": "application/json"
+										},
+										{
+											"key": "Vary",
+											"value": "Accept-Encoding"
+										},
+										{
+											"key": "Content-Encoding",
+											"value": "gzip"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 30 Sep 2025 07:54:57 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"success\": false,\n    \"message\": \"missing authorization\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Redeem Code",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"code\": \"CLGJXZSW\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{next_url}}/api/internal/vouchers/redeem",
+									"host": [
+										"{{next_url}}"
+									],
+									"path": [
+										"api",
+										"internal",
+										"vouchers",
+										"redeem"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "200",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"code\": \"AWVXCTQW\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{next_url}}/api/internal/vouchers/redeem",
+											"host": [
+												"{{next_url}}"
+											],
+											"path": [
+												"api",
+												"internal",
+												"vouchers",
+												"redeem"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "content-type",
+											"value": "application/json"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 26 Sep 2025 07:55:41 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"success\": true,\n    \"message\": \"voucher redeemed successfully\"\n}"
+								},
+								{
+									"name": "404",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{next_url}}/api/internal/vouchers/:code",
+											"host": [
+												"{{next_url}}"
+											],
+											"path": [
+												"api",
+												"internal",
+												"vouchers",
+												":code"
+											],
+											"variable": [
+												{
+													"key": "code",
+													"value": "RDVDQCFa"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "content-type",
+											"value": "application/json"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 26 Sep 2025 06:55:25 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"success\": false,\n    \"error\": \"Voucher with code \\\"RDVDQCFa\\\" not found\"\n}"
+								},
+								{
+									"name": "voucher not active",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{next_url}}/api/internal/vouchers/:code",
+											"host": [
+												"{{next_url}}"
+											],
+											"path": [
+												"api",
+												"internal",
+												"vouchers",
+												":code"
+											],
+											"variable": [
+												{
+													"key": "code",
+													"value": "RDVDQCFa"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "content-type",
+											"value": "application/json"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 26 Sep 2025 06:55:25 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"success\": false,\n    \"message\": \"Voucher not active\"\n}"
+								},
+								{
+									"name": "voucher redeemed",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{next_url}}/api/internal/vouchers/:code",
+											"host": [
+												"{{next_url}}"
+											],
+											"path": [
+												"api",
+												"internal",
+												"vouchers",
+												":code"
+											],
+											"variable": [
+												{
+													"key": "code",
+													"value": "RDVDQCFa"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "content-type",
+											"value": "application/json"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 26 Sep 2025 06:55:25 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"success\": false,\n    \"message\": \"Voucher redeemed\"\n}"
+								},
+								{
+									"name": "voucher expired",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{next_url}}/api/internal/vouchers/:code",
+											"host": [
+												"{{next_url}}"
+											],
+											"path": [
+												"api",
+												"internal",
+												"vouchers",
+												":code"
+											],
+											"variable": [
+												{
+													"key": "code",
+													"value": "RDVDQCFa"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "content-type",
+											"value": "application/json"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 26 Sep 2025 06:55:25 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"success\": false,\n    \"message\": \"voucher expired\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{next_url}}/api/internal/logout",
+							"host": [
+								"{{next_url}}"
+							],
+							"path": [
+								"api",
+								"internal",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Me",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{next_url}}/api/internal/me",
+							"host": [
+								"{{next_url}}"
+							],
+							"path": [
+								"api",
+								"internal",
+								"me"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	]
+}
