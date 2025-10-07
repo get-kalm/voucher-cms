@@ -4,6 +4,7 @@
     "build": "next build",
     "dev": "next dev --turbopack",
     "start": "next start",
+    "db:create": "psql -U postgres -c \"CREATE DATABASE get_kalm;\"",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:studio": "drizzle-kit studio"
