@@ -23,7 +23,7 @@ export default function Notification({
   }, [duration, onClose]);
 
   return (
-    <div className="fixed top-6 right-6 z-50">
+    <div className="fixed top-6 right-6 left-6 sm:left-auto z-50">
       <div
         className={`px-6 py-4 rounded-xl shadow-xl flex items-center gap-3 text-lg font-medium
           ${isSuccess ? "bg-gray-800 text-green-400" : "bg-gray-800 text-red-400"}`}

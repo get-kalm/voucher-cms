@@ -6,14 +6,17 @@ import Link from "next/link";
 import { API, apiFetch } from "@/lib/api";
 import { setToken } from "@/lib/token";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import LoadingButton from "@/components/LoadingButton";
 
 export default function LoginPage() {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
   async function handleLogin(e: React.FormEvent) {
+    setLoading(true);
     e.preventDefault();
 
     const res = await apiFetch(API.auth.login, {
@@ -27,9 +30,15 @@ export default function LoginPage() {
       setToken(data.token);
       router.push("/?fromLogin=1");
       router.refresh();
+      setLoading(false);
+      return;
     } else {
+      setLoading(false);
       setError(data.message);
+      return;
     }
+
+    setLoading(false);
   }
 
   return (
@@ -65,12 +74,9 @@ export default function LoginPage() {
             {error && <p className="text-red-500 text-sm">{error}</p>}
 
             <div>
-              <button
-                type="submit"
-                className="w-full mt-5 bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 rounded-lg transition-colors"
-              >
+              <LoadingButton loading={loading} type="submit">
                 Login
-              </button>
+              </LoadingButton>
             </div>
           </form>
 

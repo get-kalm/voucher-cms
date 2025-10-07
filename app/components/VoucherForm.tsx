@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import LoadingButton from "@/components/LoadingButton";
 
 type VoucherFormProps = {
+  loading: boolean;
   initialValues?: {
     name: string;
     isActive: boolean;
@@ -16,6 +18,7 @@ type VoucherFormProps = {
 };
 
 export default function VoucherForm({
+  loading,
   initialValues,
   onSubmit,
 }: VoucherFormProps) {
@@ -70,12 +73,9 @@ export default function VoucherForm({
       </div>
 
       {/* Submit */}
-      <button
-        type="submit"
-        className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 rounded-lg transition-colors"
-      >
+      <LoadingButton loading={loading} type="submit">
         Submit
-      </button>
+      </LoadingButton>
     </form>
   );
 }

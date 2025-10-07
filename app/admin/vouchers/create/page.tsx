@@ -9,12 +9,14 @@ import ProtectedRoute from "@/components/ProtectedRoute";
 import VoucherForm from "@/components/VoucherForm";
 
 export default function NewVoucherPage() {
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const notify = useNotification();
   const token = getBearerToken();
 
   const handleSubmit = async (values: any) => {
+    setLoading(true);
     const { name, isActive, expiryDate } = values;
     const expiryDateISO = new Date(expiryDate);
     const res = await apiFetch(API.vouchers.create, {
@@ -31,9 +33,15 @@ export default function NewVoucherPage() {
       notify("Voucher created 🎉", true, 5000);
       router.push("/admin");
       router.refresh();
+      setLoading(false);
+      return;
     } else {
       notify(json.message, false, 5000);
+      setLoading(false);
+      return;
     }
+
+    setLoading(false);
   };
 
   return (
@@ -43,7 +51,7 @@ export default function NewVoucherPage() {
           <h1 className="text-2xl font-bold text-center mb-6 text-blue-400">
             Create New Voucher
           </h1>
-          <VoucherForm onSubmit={handleSubmit} />
+          <VoucherForm onSubmit={handleSubmit} loading={loading} />
         </div>
       </div>
     </ProtectedRoute>

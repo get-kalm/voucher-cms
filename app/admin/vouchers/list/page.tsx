@@ -139,12 +139,17 @@ export default function VoucherPage() {
               className="bg-gray-800 p-4 rounded-xl hover:bg-gray-700 transition cursor-pointer shadow-md"
             >
               {/* Voucher Name */}
-              <div className="font-semibold text-white text-lg mb-1">
+              <div
+                className="font-semibold text-white text-lg mb-1 break-words overflow-hidden text-ellipsis"
+                style={{ wordBreak: "break-word" }}
+              >
                 {v.name}
               </div>
 
               {/* Voucher Code */}
-              <div className="text-gray-400 text-sm mb-3">Code: {v.code}</div>
+              <div className="text-gray-400 text-sm mb-3 break-all">
+                Code: {v.code}
+              </div>
 
               {/* Status Badges */}
               <div className="flex flex-wrap gap-2 mb-3">
