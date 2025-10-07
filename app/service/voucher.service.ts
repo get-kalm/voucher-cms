@@ -11,7 +11,7 @@ export class voucherService {
 
       return voucher;
     } catch (error) {
-      return null;
+      throw error;
     }
   }
 
@@ -46,7 +46,12 @@ export class voucherService {
     );
   }
 
-  static async update(name: string, code: string, isActive: boolean, expiryDate: Date) {
+  static async update(
+    name: string,
+    code: string,
+    isActive: boolean,
+    expiryDate: Date
+  ) {
     const voucher = await this.findByCode(code);
 
     if (!voucher) {
@@ -58,15 +63,15 @@ export class voucherService {
       voucher.code,
       isActive,
       voucher.isRedeemed,
-      expiryDate,
+      expiryDate
     );
   }
 
   private static async validateVoucher(code: string) {
     const currentTime = new Date();
-    const voucher = await this.findByCode(code)
+    const voucher = await this.findByCode(code);
     if (!voucher) {
-        return null;
+      return null;
     }
 
     if (!voucher.isActive) {
@@ -84,7 +89,6 @@ export class voucherService {
 
   private static async findByCode(code: string) {
     const vouchers = await voucherRepository.findByCode(code);
-
     if (!vouchers || vouchers.length === 0) {
       return null;
     }

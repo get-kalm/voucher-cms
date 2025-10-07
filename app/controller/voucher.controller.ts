@@ -14,9 +14,29 @@ export const voucherController = {
     }
   },
 
-  async findByCode(req: NextRequest, code: string) {
+  async findByCodeForRedeem(req: NextRequest, code: string) {
     try {
       const voucher = await voucherService.findByCodeForRedeem(code);
+
+      if (!voucher) {
+        return NextResponse.json(
+          { success: false, message: "voucher not found" },
+          { status: 404 }
+        );
+      }
+
+      return NextResponse.json({ success: true, data: voucher });
+    } catch (err: any) {
+      return NextResponse.json(
+        { success: false, message: err.message },
+        { status: 500 }
+      );
+    }
+  },
+
+  async findByCode(req: NextRequest, code: string) {
+    try {
+      const voucher = await voucherService.findByCode(code);
 
       if (!voucher) {
         return NextResponse.json(

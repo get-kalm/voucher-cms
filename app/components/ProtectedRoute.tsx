@@ -26,7 +26,7 @@ export default function ProtectedRoute({
       // missing token will open login page
       if (!token) {
         router.replace("/login");
-        setIsAuthorized(true);
+        setIsAuthorized(false);
         setIsChecking(false);
         return;
       }
@@ -86,11 +86,11 @@ export default function ProtectedRoute({
   }, [pathName, router]);
 
   if (isChecking) {
-    // TODO: create loading animation
-    return <p className="text-center mt-10">Checking authentication...</p>;
-  }
-
-  if (!isAuthorized) {
+      // TODO: create loading animation
+      return <p className="text-center mt-10">Checking authentication...</p>;
+    }
+    
+  if (!isAuthorized && (pathName != "/login" && pathName != "/register")) {
     return null;
   }
 
