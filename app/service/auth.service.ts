@@ -6,6 +6,10 @@ import bcrypt from "bcrypt";
 export class authService {
   static async register(email: string, password: string) {
     try {
+        const existingUser = await this.findByEmail(email)
+        if (existingUser) {
+            throw new Error("an account with this email already exists");
+        }
       const hashedPassword = await bcrypt.hash(password, 10);
 
       const user = await userRepository.create(email, hashedPassword, "user");
