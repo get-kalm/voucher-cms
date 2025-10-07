@@ -77,59 +77,5 @@ export default function VoucherForm({
         Submit
       </button>
     </form>
-    // <form
-    //   onSubmit={async (e) => {
-    //     e.preventDefault();
-    //     await onSubmit({ name, isActive, expiryDate });
-    //   }}
-    //   className="flex flex-col gap-5"
-    // >
-    //   <h1 className="text-2xl font-bold text-center mb-6 text-blue-400">
-    //     {mode === "create" ? "Create New Voucher" : "Update Voucher"}
-    //   </h1>
-
-    //   {/* Voucher Name */}
-    //   <div className="flex flex-col gap-2">
-    //     <label className="text-sm font-medium text-gray-300">Voucher Name</label>
-    //     <input
-    //       type="text"
-    //       value={name}
-    //       onChange={(e) => setName(e.target.value)}
-    //       className="border border-gray-700 bg-gray-900 text-gray-100 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-    //       required
-    //     />
-    //   </div>
-
-    //   {/* Active Checkbox */}
-    //   <div className="flex items-center gap-3">
-    //     <input
-    //       type="checkbox"
-    //       checked={isActive}
-    //       onChange={(e) => setIsActive(e.target.checked)}
-    //       className="w-5 h-5 text-blue-500 bg-gray-900 border-gray-700 rounded focus:ring-2 focus:ring-blue-500"
-    //     />
-    //     <label className="text-sm font-medium text-gray-300">Active</label>
-    //   </div>
-
-    //   {/* Expiry Date */}
-    //   <div className="flex flex-col gap-2">
-    //     <label className="text-sm font-medium text-gray-300">Expiry Date</label>
-    //     <input
-    //       type="date"
-    //       value={expiryDate}
-    //       onChange={(e) => setExpiryDate(e.target.value)}
-    //       className="border border-gray-700 bg-gray-900 text-gray-100 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-    //       required
-    //     />
-    //   </div>
-
-    //   {/* Submit */}
-    //   <button
-    //     type="submit"
-    //     className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 rounded-lg transition-colors"
-    //   >
-    //     {mode === "create" ? "Create" : "Update"}
-    //   </button>
-    // </form>
   );
 }

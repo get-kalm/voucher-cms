@@ -87,7 +87,7 @@ export class voucherService {
     return voucher;
   }
 
-  private static async findByCode(code: string) {
+  static async findByCode(code: string) {
     const vouchers = await voucherRepository.findByCode(code);
     if (!vouchers || vouchers.length === 0) {
       return null;
