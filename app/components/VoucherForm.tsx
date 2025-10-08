@@ -69,7 +69,7 @@ export default function VoucherForm({
           onChange={(e) => setExpiryDate(e.target.value)}
           onClick={(e) => {
             const input = e.currentTarget as HTMLInputElement;
-            if (input.showPicker) input.showPicker(); // Chrome only
+            if (input.showPicker) input.showPicker();
           }}
           className="border border-gray-700 bg-gray-900 text-gray-100 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 [color-scheme:dark] cursor-pointer"
           required

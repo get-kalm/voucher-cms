@@ -1,4 +1,3 @@
-// app/layout.tsx
 import "./ui/global.css";
 import { NotificationProvider } from "@/components/NotificationProvider";
 import ClientLayout from "@/components/ClientLayout";

@@ -4,8 +4,8 @@ import { useEffect } from "react";
 
 type NotificationProps = {
   message: string;
-  isSuccess: boolean; // ✅ add success/error flag
-  duration?: number; // in ms, e.g. 3000 = 3 seconds
+  isSuccess: boolean;
+  duration?: number;
   onClose: () => void;
 };
 

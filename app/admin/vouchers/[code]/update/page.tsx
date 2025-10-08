@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useEffect, useState, use } from "react"; // 👈 import use()
+import { useEffect, useState, use } from "react";
 import { useNotification } from "@/components/NotificationProvider";
 import { API, apiFetch } from "@/lib/api";
 import ProtectedRoute from "@/components/ProtectedRoute";
@@ -10,9 +10,9 @@ import VoucherForm from "@/components/VoucherForm";
 export default function UpdateVoucherPage({
   params,
 }: {
-  params: Promise<{ code: string }>; // 👈 type as Promise
+  params: Promise<{ code: string }>;
 }) {
-  const { code } = use(params); // 👈 unwrap params
+  const { code } = use(params);
 
   const router = useRouter();
   const notify = useNotification();
