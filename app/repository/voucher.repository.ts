@@ -3,7 +3,7 @@ import { and, eq, gt } from "drizzle-orm";
 
 export class voucherRepository {
   static async findAll() {
-    return db.select().from(vouchersTable);
+    return db.select().from(vouchersTable).orderBy(vouchersTable.id);
   }
 
   static async create(

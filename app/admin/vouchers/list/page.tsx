@@ -144,7 +144,7 @@ export default function VoucherPage() {
           </Link>
         </div>
 
-        {/* Web version */}
+        {/* Desktop version */}
         <table className="hidden sm:table w-full border-collapse rounded-lg overflow-hidden">
           <thead className="bg-blue-600">
             <tr>
