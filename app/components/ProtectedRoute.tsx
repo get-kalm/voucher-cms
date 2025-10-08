@@ -86,11 +86,17 @@ export default function ProtectedRoute({
   }, [pathName, router]);
 
   if (isChecking) {
-      // TODO: create loading animation
-      return <p className="text-center mt-10">Checking authentication...</p>;
-    }
-    
-  if (!isAuthorized && (pathName != "/login" && pathName != "/register")) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gray-900">
+        <div className="relative w-12 h-12">
+          <div className="absolute inset-0 border-4 border-blue-500 rounded-full opacity-30"></div>
+          <div className="absolute inset-0 border-4 border-t-transparent border-blue-400 rounded-full animate-spin"></div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!isAuthorized && pathName != "/login" && pathName != "/register") {
     return null;
   }
 

@@ -8,7 +8,6 @@ import ProtectedRoute from "@/components/ProtectedRoute";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import LoadingButton from "@/components/LoadingButton";
 
-// TODO: create global model or get from schema
 type Voucher = {
   id: string;
   name: string;
@@ -110,19 +109,29 @@ export default function RedeemPage() {
             </LoadingButton>
           </div>
 
+          {/* Skeleton Loader */}
+          {loadingSearch && (
+            <div className="mt-6 rounded-2xl shadow-lg p-6 border border-gray-700 bg-gray-900 animate-pulse">
+              <div className="h-6 bg-gray-700 rounded w-3/4 mb-4"></div>
+              <div className="h-4 bg-gray-700 rounded w-1/3 mb-4"></div>
+              <div className="h-4 bg-gray-700 rounded w-2/3 mb-6"></div>
+              <div className="h-10 bg-gray-700 rounded"></div>
+            </div>
+          )}
+
           {/* Voucher Preview */}
-          {voucher && (
-            <div className="mt-6 rounded-2xl shadow-lg p-6 border border-blue-800/40 bg-blue-900/30">
+          {!loadingSearch && voucher && (
+            <div className="mt-6 rounded-2xl border border-gray-700 bg-gradient-to-br from-gray-800 to-gray-900 p-6 shadow-lg hover:shadow-blue-600/20 transition-all duration-200">
               {/* Header */}
-              <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
-                <h2 className="font-bold text-xl text-blue-400 break-words flex-1 min-w-0">
+              <div className="flex flex-wrap items-center justify-between mb-4">
+                <h2 className="text-xl font-bold text-blue-400 break-words flex-1 min-w-0">
                   {voucher?.name}
                 </h2>
                 <span
-                  className={`px-3 py-1 text-sm font-medium rounded-full whitespace-nowrap ${
+                  className={`px-3 py-1 text-sm font-medium rounded-full ${
                     voucher?.isActive
-                      ? "bg-green-600/20 text-green-400 border border-green-600/40"
-                      : "bg-red-600/20 text-red-400 border border-red-600/40"
+                      ? "bg-green-500/20 text-green-400 border border-green-500/40"
+                      : "bg-red-500/20 text-red-400 border border-red-500/40"
                   }`}
                 >
                   {voucher?.isActive ? "Active" : "Inactive"}
@@ -130,22 +139,21 @@ export default function RedeemPage() {
               </div>
 
               {/* Body */}
-              <div className="space-y-3 text-gray-300 mb-3">
-                <p className="font-medium text-gray-400">
-                  Expires on{" "}
-                  {new Date(voucher?.expiryDate).toLocaleDateString("en-GB", {
-                    day: "2-digit",
-                    month: "long",
-                    year: "numeric",
-                  })}
+              <div className="space-y-3 mb-4">
+                <p className="text-gray-300">
+                  <span className="text-gray-400 font-medium">Expires on:</span>{" "}
+                  <span className="text-blue-300">
+                    {new Date(voucher?.expiryDate).toLocaleDateString("en-GB", {
+                      day: "2-digit",
+                      month: "long",
+                      year: "numeric",
+                    })}
+                  </span>
                 </p>
               </div>
 
               {/* Footer */}
-              <LoadingButton
-                onClick={redeemVoucher}
-                loading={loadingRedeem}
-              >
+              <LoadingButton onClick={redeemVoucher} loading={loadingRedeem}>
                 Redeem
               </LoadingButton>
             </div>

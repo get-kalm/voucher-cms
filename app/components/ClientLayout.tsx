@@ -3,7 +3,6 @@
 import { usePathname } from "next/navigation";
 import LogoutButton from "@/components/Logout";
 
-// TODO: place this in protected route component
 export default function ClientLayout({
   children,
 }: {
