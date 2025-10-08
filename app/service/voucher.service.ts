@@ -105,7 +105,6 @@ export class voucherService {
       attempt++;
       code = this.generateCode();
 
-      // TODO: create repo func to get all codes and loop through it to create validate uniqueness
       const existingCode = await voucherRepository.findByCode(code);
       if (existingCode.length === 0) {
         return code;

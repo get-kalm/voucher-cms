@@ -66,7 +66,69 @@ export default function VoucherPage() {
     }
   };
 
-  if (loading) return <p>Loading vouchers...</p>;
+  if (loading)
+    return (
+      <ProtectedRoute>
+        <main className="flex-1 flex flex-col items-stretch justify-start p-6">
+          <div className="flex justify-between items-center mb-4">
+            <h1 className="text-xl font-bold">Vouchers</h1>
+            <div className="bg-blue-500 text-white px-4 py-2 rounded opacity-50">
+              + New Voucher
+            </div>
+          </div>
+
+          {/* Desktop Skeleton */}
+          <table className="hidden sm:table w-full border-collapse rounded-lg overflow-hidden">
+            <thead className="bg-blue-600">
+              <tr>
+                {["Name", "Code", "Active", "Redeemed", "Expiry Date"].map(
+                  (head) => (
+                    <th
+                      key={head}
+                      className="px-4 py-3 text-left text-white font-semibold"
+                    >
+                      {head}
+                    </th>
+                  )
+                )}
+              </tr>
+            </thead>
+            <tbody>
+              {Array.from({ length: 5 }).map((_, i) => (
+                <tr
+                  key={i}
+                  className="odd:bg-gray-800 even:bg-gray-900 animate-pulse"
+                >
+                  {Array.from({ length: 5 }).map((__, j) => (
+                    <td key={j} className="px-4 py-3">
+                      <div className="h-4 bg-gray-700 rounded w-3/4"></div>
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
+          {/* Mobile Skeleton */}
+          <div className="sm:hidden flex flex-col gap-3">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <div
+                key={i}
+                className="bg-gray-800 p-4 rounded-xl shadow-md animate-pulse"
+              >
+                <div className="h-5 bg-gray-700 rounded w-2/3 mb-2"></div>
+                <div className="h-4 bg-gray-700 rounded w-1/2 mb-3"></div>
+                <div className="flex gap-2 mb-3">
+                  <div className="h-5 w-16 bg-gray-700 rounded-full"></div>
+                  <div className="h-5 w-20 bg-gray-700 rounded-full"></div>
+                </div>
+                <div className="h-4 bg-gray-700 rounded w-1/3"></div>
+              </div>
+            ))}
+          </div>
+        </main>
+      </ProtectedRoute>
+    );
   if (error) return <p className="text-red-500">{error}</p>;
 
   return (
